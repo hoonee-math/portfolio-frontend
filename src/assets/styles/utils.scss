@@ -1,0 +1,110 @@
+@import "./variables.scss";
+
+// 플렉스 유틸리티 믹스인
+@mixin flex(
+  $direction: row,
+  $justify: flex-start,
+  $align: flex-start,
+  $wrap: nowrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// 포지션 유틸리티 믹스인
+@mixin position(
+  $position,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// 반응형 미디어 쿼리 믹스인
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "sm" {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == "md" {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == "lg" {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == "xl" {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+// 라운드 스타일 믹스인
+@mixin rounded($radius: 4px) {
+  border-radius: $radius;
+}
+
+// 버튼 스타일 믹스인
+@mixin button-style($bg-color, $text-color, $hover-bg-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: $transition-base;
+
+  &:hover {
+    background-color: $hover-bg-color;
+  }
+}
+
+// 그라데이션 텍스트
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+// 그림자 믹스인
+@mixin box-shadow($shadow) {
+  box-shadow: $shadow;
+}
+
+// 섹션 래퍼 믹스인
+@mixin section-wrapper {
+  padding-top: $section-margin-top;
+  margin-top: -$section-margin-top;
+  scroll-margin-top: $scroll-offset;
+}
+
+// 섹션 스타일 믹스인
+@mixin section-style {
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: $shadow;
+  margin-bottom: 40px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+// 페이지 번호 스타일 믹스인
+@mixin page-number-style {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 14px;
+  color: $gray-500;
+}
