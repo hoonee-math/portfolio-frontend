@@ -1,12 +1,7 @@
-@import "./variables.scss";
+@use './variables' as vars;
 
 // 플렉스 유틸리티 믹스인
-@mixin flex(
-  $direction: row,
-  $justify: flex-start,
-  $align: flex-start,
-  $wrap: nowrap
-) {
+@mixin flex($direction: row, $justify: flex-start, $align: flex-start, $wrap: nowrap) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
@@ -15,13 +10,7 @@
 }
 
 // 포지션 유틸리티 믹스인
-@mixin position(
-  $position,
-  $top: null,
-  $right: null,
-  $bottom: null,
-  $left: null
-) {
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
   position: $position;
   top: $top;
   right: $right;
@@ -31,22 +20,14 @@
 
 // 반응형 미디어 쿼리 믹스인
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == "sm" {
-    @media (min-width: $breakpoint-sm) {
-      @content;
-    }
-  } @else if $breakpoint == "md" {
-    @media (min-width: $breakpoint-md) {
-      @content;
-    }
-  } @else if $breakpoint == "lg" {
-    @media (min-width: $breakpoint-lg) {
-      @content;
-    }
-  } @else if $breakpoint == "xl" {
-    @media (min-width: $breakpoint-xl) {
-      @content;
-    }
+  @if $breakpoint == 'sm' {
+    @media (min-width: vars.$breakpoint-sm) { @content; }
+  } @else if $breakpoint == 'md' {
+    @media (min-width: vars.$breakpoint-md) { @content; }
+  } @else if $breakpoint == 'lg' {
+    @media (min-width: vars.$breakpoint-lg) { @content; }
+  } @else if $breakpoint == 'xl' {
+    @media (min-width: vars.$breakpoint-xl) { @content; }
   }
 }
 
@@ -61,8 +42,8 @@
   color: $text-color;
   padding: 8px 16px;
   border-radius: 4px;
-  transition: $transition-base;
-
+  transition: vars.$transition-base;
+  
   &:hover {
     background-color: $hover-bg-color;
   }
@@ -84,16 +65,16 @@
 
 // 섹션 래퍼 믹스인
 @mixin section-wrapper {
-  padding-top: $section-margin-top;
-  margin-top: -$section-margin-top;
-  scroll-margin-top: $scroll-offset;
+  padding-top: vars.$section-margin-top;
+  margin-top: -vars.$section-margin-top;
+  scroll-margin-top: vars.$scroll-offset;
 }
 
 // 섹션 스타일 믹스인
 @mixin section-style {
-  background-color: $white;
+  background-color: vars.$white;
   border-radius: 10px;
-  box-shadow: $shadow;
+  box-shadow: vars.$shadow;
   margin-bottom: 40px;
   padding: 40px;
   display: flex;
@@ -106,5 +87,5 @@
   bottom: 20px;
   right: 20px;
   font-size: 14px;
-  color: $gray-500;
+  color: vars.$gray-500;
 }

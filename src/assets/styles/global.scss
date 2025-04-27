@@ -1,46 +1,43 @@
-@import "./variables.scss";
+@use './variables' as vars;
 
 // 기본 스타일 초기화
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 // 기본 스타일 설정
-html,
-body {
+html, body {
   height: 100%;
   overflow-x: hidden;
 }
 
 body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  color: $text-color;
-  background-color: $bg-color;
+  font-family: vars.$font-family-base;
+  font-size: vars.$font-size-base;
+  color: vars.$text-color;
+  background-color: vars.$bg-color;
   line-height: 1.5;
 }
 
 // 링크 스타일
 a {
-  color: $primary-color;
+  color: vars.$primary-color;
   text-decoration: none;
-  transition: $transition-base;
-
+  transition: vars.$transition-base;
+  
   &:hover {
-    color: $secondary-color;
+    color: vars.$secondary-color;
   }
 }
 
 // 버튼 스타일
 button {
   cursor: pointer;
-  font-family: $font-family-base;
+  font-family: vars.$font-family-base;
   border: none;
-
+  
   &:focus {
     outline: none;
   }
@@ -53,20 +50,20 @@ button {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-
-  @media (min-width: $breakpoint-sm) {
+  
+  @media (min-width: vars.$breakpoint-sm) {
     max-width: 540px;
   }
-
-  @media (min-width: $breakpoint-md) {
+  
+  @media (min-width: vars.$breakpoint-md) {
     max-width: 720px;
   }
-
-  @media (min-width: $breakpoint-lg) {
+  
+  @media (min-width: vars.$breakpoint-lg) {
     max-width: 960px;
   }
-
-  @media (min-width: $breakpoint-xl) {
+  
+  @media (min-width: vars.$breakpoint-xl) {
     max-width: 1140px;
   }
 }
@@ -117,14 +114,14 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: $gray-100;
+  background: vars.$gray-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $gray-400;
+  background: vars.$gray-400;
   border-radius: 4px;
-
+  
   &:hover {
-    background: $gray-500;
+    background: vars.$gray-500;
   }
 }
