@@ -41,17 +41,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables.scss';
-@use '@/assets/styles/utils.scss';
+@use '@/assets/styles/variables' as vars;
+@use '@/assets/styles/utils' as utils;
 
 .section-wrapper {
-    @include section-wrapper;
+    @include utils.section-wrapper;
     opacity: 1;
     transition: opacity 0.5s ease;
 
-    // 필요에 따라 섹션 컨테이너가 활성화되었을 때의 스타일을 정의할 수 있음
-    /* &.active {
-        // 예: 추가적인 활성화 스타일
-    } */
+    /*&.active {
+        // 활성화 스타일
+    }*/
 }
 </style>

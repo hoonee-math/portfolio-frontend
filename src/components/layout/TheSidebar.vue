@@ -47,23 +47,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables.scss';
-@use '@/assets/styles/utils.scss';
+@use '@/assets/styles/variables' as vars;
+@use '@/assets/styles/utils' as utils;
 
 .sidebar {
-    width: $sidebar-width;
-    background-color: $white;
+    width: vars.$sidebar-width; // 네임스페이스 사용
+    background-color: vars.$white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
     padding: 20px 10px;
-    @include position(fixed, $header-height, null, 0, 0);
+    @include utils.position(fixed, vars.$header-height, null, 0, 0); // 네임스페이스 사용
     overflow-y: auto;
     z-index: 90;
 
-    @include respond-to('md') {
-        width: $sidebar-width;
+    @include utils.respond-to('md') {
+        // 네임스페이스 사용
+        width: vars.$sidebar-width;
     }
 
-    @include respond-to('sm') {
+    @include utils.respond-to('sm') {
+        // 네임스페이스 사용
         width: 200px;
     }
 }
@@ -79,22 +81,22 @@ export default defineComponent({
 .nav-link {
     display: block;
     padding: 10px 15px;
-    color: $text-color;
+    color: vars.$text-color;
     text-decoration: none;
-    @include rounded(4px);
-    transition: $transition-base;
+    @include utils.rounded(4px);
+    transition: vars.$transition-base;
 
     &:hover {
         background-color: rgba(0, 0, 0, 0.05);
     }
 
     &.active {
-        background: $gradient-primary;
-        color: $white;
+        background: vars.$gradient-primary;
+        color: vars.$white;
     }
 }
 
-@media (max-width: $breakpoint-md) {
+@media (max-width: vars.$breakpoint-md) {
     .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s ease;

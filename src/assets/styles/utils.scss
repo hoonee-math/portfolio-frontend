@@ -1,3 +1,4 @@
+@forward './variables';
 @use './variables' as vars;
 
 // 플렉스 유틸리티 믹스인
@@ -66,7 +67,7 @@
 // 섹션 래퍼 믹스인
 @mixin section-wrapper {
   padding-top: vars.$section-margin-top;
-  margin-top: -vars.$section-margin-top;
+  margin-top: calc(-1 * vars.$section-margin-top); // 마이너스 부호를 따로 계산 표현식으로 적용
   scroll-margin-top: vars.$scroll-offset;
 }
 

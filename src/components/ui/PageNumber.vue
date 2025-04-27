@@ -21,10 +21,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/variables.scss';
-@use '@/assets/styles/utils.scss';
+@use '@/assets/styles/variables' as vars;
+@use '@/assets/styles/utils' as utils;
 
 .page-number {
-    @include page-number-style;
+    @include utils.page-number-style;
 }
 </style>
