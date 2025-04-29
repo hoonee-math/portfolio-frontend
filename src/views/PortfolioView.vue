@@ -3,10 +3,15 @@
         <the-header :title="title" content-id="content-to-pdf" />
 
         <div class="container">
-            <the-sidebar :nav-items="navItems" :active-section="activeSection"
+            <the-sidebar :nav-items="navItems" :active-section="activeSection" :is-visible="sidebarVisible"
                 @update:activeSection="updateActiveSection" @navigate="scrollToSection" />
 
-            <main class="main-content">
+            <!-- 모바일 메뉴 토글 버튼 -->
+            <button class="sidebar-toggle" @click="toggleSidebar">
+                <span class="toggle-icon"></span>
+            </button>
+
+            <main class="main-content" :class="{ 'full-width': !sidebarVisible }">
                 <section-wrapper v-for="section in sections" :key="section.id" :section-id="section.id"
                     :active-section="activeSection">
                     <component :is="section.component" />
@@ -43,6 +48,7 @@ export default defineComponent({
     setup() {
         const title = ref('Portfolio');
         const activeSection = ref('home');
+        const sidebarVisible = ref(true); // 기본 상태는 보이게 설정
 
         // 네비게이션 아이템 정의
         const navItems = [
@@ -100,12 +106,38 @@ export default defineComponent({
                     behavior: 'smooth',
                     block: 'start'
                 });
+
+                // 모바일에서 메뉴 클릭 후 사이드바 닫기
+                if (window.innerWidth <= 768) {
+                    sidebarVisible.value = false;
+                }
             }
         };
 
-        // 컴포넌트 마운트 시 스크롤 이벤트 리스너 등록
+        // 사이드바 토글 메서드
+        const toggleSidebar = () => {
+            sidebarVisible.value = !sidebarVisible.value;
+        };
+
+        // 화면 크기 변경 감지
+        const handleResize = () => {
+            // 화면 크기에 따라 사이드바 상태 조정
+            if (window.innerWidth <= 768) {
+                // 모바일 화면에서는 기본적으로 사이드바 숨김
+                sidebarVisible.value = false;
+            } else {
+                // 큰 화면에서는 항상 사이드바 표시
+                sidebarVisible.value = true;
+            }
+        };
+
+        // 컴포넌트 마운트 시 이벤트 리스너 등록
         onMounted(() => {
             window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleResize);
+
+            // 초기 화면 크기에 따른 사이드바 상태 설정
+            handleResize();
 
             // URL 해시가 있으면 해당 섹션으로 이동
             if (window.location.hash) {
@@ -115,9 +147,10 @@ export default defineComponent({
             }
         });
 
-        // 컴포넌트 언마운트 시 스크롤 이벤트 리스너 제거
+        // 컴포넌트 언마운트 시 이벤트 리스너 제거
         onBeforeUnmount(() => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
         });
 
         return {
@@ -125,8 +158,10 @@ export default defineComponent({
             activeSection,
             navItems,
             sections,
+            sidebarVisible,
             updateActiveSection,
-            scrollToSection
+            scrollToSection,
+            toggleSidebar
         };
     }
 });
@@ -140,19 +175,74 @@ export default defineComponent({
     display: flex;
     margin-top: vars.$header-height;
     min-height: calc(100vh - vars.$header-height);
+    position: relative;
+    /* 컨테이너에 relative 위치 지정 */
 }
 
 .main-content {
     margin-left: vars.$sidebar-width;
     width: calc(100% - vars.$sidebar-width);
     padding: 20px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
 
-    @include utils.respond-to('md') {
-        margin-left: vars.$sidebar-width;
-        width: calc(100% - vars.$sidebar-width);
+    &.full-width {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* 사이드바 토글 버튼 스타일 */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: vars.$gradient-primary;
+    border: none;
+    box-shadow: vars.$shadow;
+    z-index: 95;
+    cursor: pointer;
+
+    .toggle-icon {
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        width: 24px;
+        height: 2px;
+        background-color: vars.$white;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background-color: vars.$white;
+            left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        &::before {
+            top: -8px;
+        }
+
+        &::after {
+            bottom: -8px;
+        }
+    }
+}
+
+/* 미디어 쿼리를 통한 반응형 레이아웃 */
+@media (max-width: 768px) {
+    .sidebar-toggle {
+        display: block;
+        /* 모바일에서만 토글 버튼 표시 */
     }
 
-    @include utils.respond-to('sm') {
+    .main-content {
         margin-left: 0;
         width: 100%;
     }

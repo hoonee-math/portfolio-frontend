@@ -1,5 +1,5 @@
 <template>
-    <aside class="sidebar no-print">
+    <aside class="sidebar no-print" :class="{ 'sidebar-hidden': !isVisible }">
         <nav>
             <ul class="sidebar-nav">
                 <li v-for="item in navItems" :key="item.id" class="nav-item">
@@ -32,6 +32,10 @@ export default defineComponent({
         activeSection: {
             type: String,
             default: 'home'
+        },
+        isVisible: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -51,22 +55,18 @@ export default defineComponent({
 @use '@/assets/styles/utils' as utils;
 
 .sidebar {
-    width: vars.$sidebar-width; // 네임스페이스 사용
+    width: vars.$sidebar-width;
     background-color: vars.$white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
     padding: 20px 10px;
-    @include utils.position(fixed, vars.$header-height, null, 0, 0); // 네임스페이스 사용
+    @include utils.position(fixed, vars.$header-height, null, 0, 0);
     overflow-y: auto;
     z-index: 90;
+    transition: transform 0.3s ease;
+    /* 부드러운 전환 효과 */
 
     @include utils.respond-to('md') {
-        // 네임스페이스 사용
         width: vars.$sidebar-width;
-    }
-
-    @include utils.respond-to('sm') {
-        // 네임스페이스 사용
-        width: 200px;
     }
 }
 
@@ -96,13 +96,15 @@ export default defineComponent({
     }
 }
 
-@media (max-width: vars.$breakpoint-md) {
+/* 모바일 반응형 스타일 */
+@media (max-width: 768px) {
     .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        transform: translateX(0);
+        width: 250px;
+        /* 모바일에서의 사이드바 너비 */
 
-        &.active {
-            transform: translateX(0);
+        &.sidebar-hidden {
+            transform: translateX(-100%);
         }
     }
 }

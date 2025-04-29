@@ -48,8 +48,8 @@ export default defineComponent({
         return {
             projects: [
                 {
-                    title: '온라인 쇼핑몰',
-                    description: 'React와 Node.js를 활용한 풀스택 이커머스 플랫폼입니다. 사용자 인증, 장바구니, 결제 기능을 구현했습니다.',
+                    title: '',
+                    description: '온라인 쇼핑몰 프로젝트입니다.',
                     image: '/hoonee-math-favicon.png',
                     tags: ['React', 'Node.js', 'MongoDB', 'Express']
                 },
@@ -66,7 +66,7 @@ export default defineComponent({
 .section {
     @include utils.section-style;
     height: 800px;
-    position: relative;
+    // position: relative;
     overflow-y: auto;
 }
 

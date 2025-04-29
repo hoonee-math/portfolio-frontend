@@ -33,7 +33,7 @@ export default defineComponent({
 
 .section {
   @include utils.section-style;
-  height: 400px;
+//   height: 400px;
   position: relative;
   justify-content: center;
 }
