@@ -48,10 +48,40 @@ export default defineComponent({
         return {
             projects: [
                 {
-                    title: '',
-                    description: '온라인 쇼핑몰 프로젝트입니다.',
+                    title: '천재의 서재',
+                    description: '천재교육 문제은행 API를 활용한 문제은행 웹사이트입니다.',
                     image: '/hoonee-math-favicon.png',
-                    tags: ['React', 'Node.js', 'MongoDB', 'Express']
+                    tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker']
+                },
+                {
+                    title: 'GenieQ',
+                    description: '비문학 지문 및 문항 AI 생성 서비스',
+                    image: '/hoonee-math-favicon.png',
+                    tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker']
+                },
+                {
+                    title: '시범강의 예약 시스템',
+                    description: '해법수학 학생 전용 시범강의 예약 시스템',
+                    image: '/hoonee-math-favicon.png',
+                    tags: ['JSP', 'java', 'Spring-Legacy', 'JPA', 'OracleDB', 'AWS', 'Docker']
+                },
+                {
+                    title: '실시간 온라인 강의 웹 서비스',
+                    description: 'zoom을 활용한 실시간 온라인 강의 웹 서비스',
+                    image: '/hoonee-math-favicon.png',
+                    tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+                },
+                {
+                    title: '교보재 중고거래 플랫폼',
+                    description: '학교와 학원 선생님들을 위한 교보재 중고거래 플랫폼',
+                    image: '/hoonee-math-favicon.png',
+                    tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+                },
+                {
+                    title: '학부모 커뮤니티 웹 서비스',
+                    description: '다양한 정보를 공유할 수 있는 학부모 커뮤니티 웹 서비스',
+                    image: '/hoonee-math-favicon.png',
+                    tags: ['JSP', 'java', 'myBatis', 'OracleDB']
                 },
             ] as Project[]
         };
@@ -65,7 +95,7 @@ export default defineComponent({
 
 .section {
     @include utils.section-style;
-    height: 800px;
+    // height: 800px;
     // position: relative;
     overflow-y: auto;
 }
@@ -95,6 +125,12 @@ export default defineComponent({
     gap: 1.5rem;
 
     @include utils.respond-to('sm') {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 1200px) {
+    .projects-grid {
         grid-template-columns: 1fr;
     }
 }
