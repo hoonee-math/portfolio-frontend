@@ -29,11 +29,10 @@ import SectionWrapper from '@/components/ui/SectionWrapper.vue';
 import HomeSection from '@/components/sections/HomeSection.vue';
 import ProjectsSection from '@/components/sections/ProjectsSection.vue';
 
-// 나머지 섹션들은 필요에 따라 구현하세요
-// import AboutSection from '@/components/sections/AboutSection.vue';
-// import ResumeSection from '@/components/sections/ResumeSection.vue';
-// import SkillsSection from '@/components/sections/SkillsSection.vue';
-// import ContactSection from '@/components/sections/ContactSection.vue';
+import AboutSection from '@/components/sections/AboutSection.vue';
+import ResumeSection from '@/components/sections/ResumeSection.vue';
+import SkillsSection from '@/components/sections/SkillsSection.vue';
+import ContactSection from '@/components/sections/ContactSection.vue';
 
 export default defineComponent({
     name: 'PortfolioView',
@@ -63,11 +62,11 @@ export default defineComponent({
         // 실제 섹션 컴포넌트 매핑
         const sections = [
             { id: 'home', component: HomeSection },
-            // { id: 'about', component: AboutSection },
+            { id: 'about', component: AboutSection },
             { id: 'projects', component: ProjectsSection },
-            // { id: 'resume', component: ResumeSection },
-            // { id: 'skills', component: SkillsSection },
-            // { id: 'contact', component: ContactSection }
+            { id: 'resume', component: ResumeSection },
+            { id: 'skills', component: SkillsSection },
+            { id: 'contact', component: ContactSection }
         ];
 
         // 스크롤 이벤트 핸들러
