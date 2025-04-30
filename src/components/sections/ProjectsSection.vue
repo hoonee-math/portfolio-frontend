@@ -50,37 +50,37 @@ export default defineComponent({
                 {
                     title: '천재의 서재',
                     description: '천재교육 문제은행 API를 활용한 문제은행 웹사이트입니다.',
-                    image: '/hoonee-math-favicon.png',
+                    image: '/천재의서재.png',
                     tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker']
                 },
                 {
                     title: 'GenieQ',
                     description: '비문학 지문 및 문항 AI 생성 서비스',
-                    image: '/hoonee-math-favicon.png',
+                    image: '/genieq.png',
                     tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker']
                 },
                 {
                     title: '시범강의 예약 시스템',
                     description: '해법수학 학생 전용 시범강의 예약 시스템',
-                    image: '/hoonee-math-favicon.png',
+                    image: '/reservation.png',
                     tags: ['JSP', 'java', 'Spring-Legacy', 'JPA', 'OracleDB', 'AWS', 'Docker']
                 },
                 {
                     title: '실시간 온라인 강의 웹 서비스',
                     description: 'zoom을 활용한 실시간 온라인 강의 웹 서비스',
-                    image: '/hoonee-math-favicon.png',
+                    image: '/honeyT.png',
                     tags: ['JSP', 'java', 'myBatis', 'OracleDB']
                 },
                 {
                     title: '교보재 중고거래 플랫폼',
                     description: '학교와 학원 선생님들을 위한 교보재 중고거래 플랫폼',
-                    image: '/hoonee-math-favicon.png',
+                    image: '/Thoneymoa.png',
                     tags: ['JSP', 'java', 'myBatis', 'OracleDB']
                 },
                 {
                     title: '학부모 커뮤니티 웹 서비스',
                     description: '다양한 정보를 공유할 수 있는 학부모 커뮤니티 웹 서비스',
-                    image: '/hoonee-math-favicon.png',
+                    image: '/momsT.png',
                     tags: ['JSP', 'java', 'myBatis', 'OracleDB']
                 },
             ] as Project[]
