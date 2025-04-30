@@ -66,19 +66,19 @@ export default defineComponent({
                     tags: ['JSP', 'java', 'Spring-Legacy', 'JPA', 'OracleDB', 'AWS', 'Docker']
                 },
                 {
-                    title: '실시간 온라인 강의 웹 서비스',
+                    title: 'HoneyT',
                     description: 'zoom을 활용한 실시간 온라인 강의 웹 서비스',
                     image: '/honeyT.png',
                     tags: ['JSP', 'java', 'myBatis', 'OracleDB']
                 },
                 {
-                    title: '교보재 중고거래 플랫폼',
+                    title: '티꿀모아',
                     description: '학교와 학원 선생님들을 위한 교보재 중고거래 플랫폼',
                     image: '/Thoneymoa.png',
                     tags: ['JSP', 'java', 'myBatis', 'OracleDB']
                 },
                 {
-                    title: '학부모 커뮤니티 웹 서비스',
+                    title: '맘스티처',
                     description: '다양한 정보를 공유할 수 있는 학부모 커뮤니티 웹 서비스',
                     image: '/momsT.png',
                     tags: ['JSP', 'java', 'myBatis', 'OracleDB']
