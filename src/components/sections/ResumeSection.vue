@@ -23,7 +23,13 @@ export default {
     min-height: 500px;
     position: relative;
     justify-content: center;
+
+    @media (max-width: 768px) {
+        padding: 20px 12px;
+        /* 모바일에서 좌우 패딩 축소 */
+    }
 }
+
 .slide-image {
     max-width: 100%;
     height: auto;
@@ -31,6 +37,7 @@ export default {
     box-shadow: vars.$shadow;
     margin-bottom: 2rem;
 }
+
 .section-header {
     margin-bottom: 1.5rem;
 

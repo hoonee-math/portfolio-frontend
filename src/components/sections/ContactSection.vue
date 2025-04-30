@@ -23,6 +23,11 @@ export default {
     min-height: auto;
     position: relative;
     justify-content: center;
+    
+    @media (max-width: 768px) {
+        padding: 20px 12px;
+        /* 모바일에서 좌우 패딩 축소 */
+    }
 }
 .slide-image {
     max-width: 100%;

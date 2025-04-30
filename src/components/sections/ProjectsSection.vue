@@ -33,11 +33,7 @@
                 <p v-else class="modal-unavailable">링크가 제공되지 않는 프로젝트입니다.</p>
                 <div class="modal-actions">
                     <button class="btn-cancel" @click="closeModal">취소</button>
-                    <button 
-                        v-if="selectedProject.src" 
-                        class="btn-confirm" 
-                        @click="navigateToLink"
-                    >
+                    <button v-if="selectedProject.src" class="btn-confirm" @click="navigateToLink">
                         이동하기
                     </button>
                 </div>
@@ -75,46 +71,46 @@ export default defineComponent({
 
         // 프로젝트 데이터
         const projects = ref([
-                {
-                    title: '천재의 서재',
-                    description: '천재교육 문제은행 API를 활용한 문제은행 웹사이트입니다.',
-                    image: '/천재의서재.png',
-                    tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
-                    src: 'http://43.202.6.90:3000/home'
-                },
-                {
-                    title: 'GenieQ',
-                    description: '비문학 지문 및 문항 AI 생성 서비스',
-                    image: '/genieq.png',
-                    tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
-                    src: 'http://43.202.6.90/team/genius/kwanghoon'
-                },
-                {
-                    title: '시범강의 예약 시스템',
-                    description: '해법수학 학생 전용 시범강의 예약 시스템',
-                    image: '/reservation.png',
-                    tags: ['JSP', 'java', 'Spring-Legacy', 'JPA', 'OracleDB', 'AWS', 'Docker'],
-                    src: 'http://43.202.6.90:8080/reservation/'
-                },
-                {
-                    title: 'HoneyT',
-                    description: 'zoom을 활용한 실시간 온라인 강의 웹 서비스',
-                    image: '/honeyT.png',
-                    tags: ['JSP', 'java', 'myBatis', 'OracleDB']
-                },
-                {
-                    title: '티꿀모아',
-                    description: '학교와 학원 선생님들을 위한 교보재 중고거래 플랫폼',
-                    image: '/Thoneymoa.png',
-                    tags: ['JSP', 'java', 'myBatis', 'OracleDB']
-                },
-                {
-                    title: '맘스티처',
-                    description: '다양한 정보를 공유할 수 있는 학부모 커뮤니티 웹 서비스',
-                    image: '/momsT.png',
-                    tags: ['JSP', 'java', 'myBatis', 'OracleDB']
-                },
-            ] as Project[]);
+            {
+                title: '천재의 서재',
+                description: '천재교육 문제은행 API를 활용한 문제은행 웹사이트입니다.',
+                image: '/천재의서재.png',
+                tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
+                src: 'http://43.202.6.90:3000/home'
+            },
+            {
+                title: 'GenieQ',
+                description: '비문학 지문 및 문항 AI 생성 서비스',
+                image: '/genieq.png',
+                tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
+                src: 'http://43.202.6.90/team/genius/kwanghoon'
+            },
+            {
+                title: '시범강의 예약 시스템',
+                description: '해법수학 학생 전용 시범강의 예약 시스템',
+                image: '/reservation.png',
+                tags: ['JSP', 'java', 'Spring-Legacy', 'JPA', 'OracleDB', 'AWS', 'Docker'],
+                src: 'http://43.202.6.90:8080/reservation/'
+            },
+            {
+                title: 'HoneyT',
+                description: 'zoom을 활용한 실시간 온라인 강의 웹 서비스',
+                image: '/honeyT.png',
+                tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+            },
+            {
+                title: '티꿀모아',
+                description: '학교와 학원 선생님들을 위한 교보재 중고거래 플랫폼',
+                image: '/Thoneymoa.png',
+                tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+            },
+            {
+                title: '맘스티처',
+                description: '다양한 정보를 공유할 수 있는 학부모 커뮤니티 웹 서비스',
+                image: '/momsT.png',
+                tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+            },
+        ] as Project[]);
         // 모달 열기
         const openModal = (project: Project) => {
             selectedProject.value = project;
@@ -155,7 +151,13 @@ export default defineComponent({
     // height: 800px;
     // position: relative;
     overflow-y: auto;
+
+    @media (max-width: 768px) {
+        padding: 20px 12px;
+        /* 모바일에서 좌우 패딩 축소 */
+    }
 }
+
 .slide-image {
     max-width: 100%;
     height: auto;
@@ -305,7 +307,8 @@ export default defineComponent({
     margin-top: 24px;
 }
 
-.btn-cancel, .btn-confirm {
+.btn-cancel,
+.btn-confirm {
     padding: 8px 16px;
     border-radius: 4px;
     font-weight: 500;

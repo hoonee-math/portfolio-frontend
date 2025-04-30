@@ -11,7 +11,6 @@
                 </p>
             </div>
         </div>
-        <page-number :current-page="1" :total-pages="6" />
     </section>
 </template>
 
@@ -36,6 +35,11 @@ export default defineComponent({
 //   height: 400px;
   position: relative;
   justify-content: center;
+  
+  @media (max-width: 768px) {
+        padding: 20px 12px;
+        /* 모바일에서 좌우 패딩 축소 */
+    }
 }
 
 .section-content {
@@ -67,11 +71,19 @@ export default defineComponent({
   font-size: 2rem;
   margin-bottom: 1rem;
   color: vars.$text-color;
+  
+  @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
 }
 
 .subtitle {
   max-width: 600px;
   margin: 0 auto;
   color: vars.$gray-600;
+  
+  @media (max-width: 768px) {
+        font-size: 0.9rem;
+    }
 }
 </style>

@@ -188,6 +188,9 @@ export default defineComponent({
         margin-left: 0;
         width: 100%;
     }
+    @media (max-width: 768px) {
+        padding: 10px 5px; /* 모바일에서 좌우 패딩 축소 */
+    }
 }
 
 /* 사이드바 토글 버튼 스타일 */
