@@ -99,6 +99,13 @@ export default defineComponent({
     // position: relative;
     overflow-y: auto;
 }
+.slide-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: vars.$shadow;
+    margin-bottom: 2rem;
+}
 
 .section-header {
     margin-bottom: 1.5rem;

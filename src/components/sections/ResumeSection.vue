@@ -1,8 +1,11 @@
 <template>
     <section class="section" id="home">
+        <div class="section-header">
+            <h2 class="section-title">Resume</h2>
+            <p class="section-subtitle"></p>
+        </div>
         <div class="section-content">
-            <h1 class="section-title">Resume</h1>
-            <p class="section-description">This is the resume section where you can provide your resume information</p>
+            <img src="/슬라이드1.PNG" alt="포트폴리오 이미지" class="slide-image">
         </div>
     </section>
 </template>
@@ -20,5 +23,26 @@ export default {
     min-height: 500px;
     position: relative;
     justify-content: center;
+}
+.slide-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: vars.$shadow;
+    margin-bottom: 2rem;
+}
+.section-header {
+    margin-bottom: 1.5rem;
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        @include utils.gradient-text(vars.$gradient-primary);
+    }
+
+    .section-subtitle {
+        color: vars.$gray-600;
+        font-weight: vars.$font-weight-medium;
+    }
 }
 </style>

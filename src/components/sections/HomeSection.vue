@@ -2,7 +2,7 @@
     <section class="section" id="home">
         <div class="section-content">
             <div class="text-center">
-                <img src="/hoonee-math-favicon.png" alt="포트폴리오 이미지" class="portfolio-image">
+                <img src="/슬라이드1.PNG" alt="포트폴리오 이미지" class="slide-image">
                 <h2 class="title">안녕하세요, 최광훈입니다!</h2>
                 <p class="subtitle">
                     창의적이고 혁신적인 웹 개발자입니다. 다양한 기술 스택을 활용하여 사용자 경험을 극대화하는 웹 애플리케이션을 개발합니다.
@@ -44,6 +44,14 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.slide-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: vars.$shadow;
+    margin-bottom: 2rem;
 }
 
 .portfolio-image {

@@ -1,8 +1,14 @@
 <template>
     <section class="section" id="home">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">제가 작업한 최근 프로젝트들입니다</p>
+        </div>
         <div class="section-content">
-            <h1 class="section-title">About Me</h1>
-            <p class="section-description">This is the about section where you can introduce yourself.</p>
+            <img src="/슬라이드2.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/슬라이드3.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/슬라이드4.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/슬라이드5.PNG" alt="포트폴리오 이미지" class="slide-image">
         </div>
     </section>
 </template>
@@ -20,5 +26,26 @@ export default {
     min-height: 500px;
     position: relative;
     justify-content: center;
+}
+.slide-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: vars.$shadow;
+    margin-bottom: 2rem;
+}
+.section-header {
+    margin-bottom: 1.5rem;
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        @include utils.gradient-text(vars.$gradient-primary);
+    }
+
+    .section-subtitle {
+        color: vars.$gray-600;
+        font-weight: vars.$font-weight-medium;
+    }
 }
 </style>
