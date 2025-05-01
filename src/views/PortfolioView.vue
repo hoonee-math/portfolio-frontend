@@ -107,7 +107,7 @@ export default defineComponent({
                 });
 
                 // 모바일에서 메뉴 클릭 후 사이드바 닫기
-                if (window.innerWidth <= 768) {
+                if (window.innerWidth <= 992) {
                     sidebarVisible.value = false;
                 }
             }
@@ -121,7 +121,7 @@ export default defineComponent({
         // 화면 크기 변경 감지
         const handleResize = () => {
             // 화면 크기에 따라 사이드바 상태 조정
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 992) {
                 // 모바일 화면에서는 기본적으로 사이드바 숨김
                 sidebarVisible.value = false;
             } else {
@@ -188,7 +188,7 @@ export default defineComponent({
         margin-left: 0;
         width: 100%;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
         padding: 10px 5px; /* 모바일에서 좌우 패딩 축소 */
     }
 }
@@ -238,7 +238,7 @@ export default defineComponent({
 }
 
 /* 미디어 쿼리를 통한 반응형 레이아웃 */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .sidebar-toggle {
         display: block;
         /* 모바일에서만 토글 버튼 표시 */

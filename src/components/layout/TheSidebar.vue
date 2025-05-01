@@ -97,7 +97,7 @@ export default defineComponent({
 }
 
 /* 모바일 반응형 스타일 */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .sidebar {
         transform: translateX(0);
         width: 250px;
