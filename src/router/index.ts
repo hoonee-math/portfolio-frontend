@@ -7,7 +7,9 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'portfolio',
         component: PortfolioView
-    }
+    },
+    // 존재하지 않는 페이지 처리
+    { path: '/:pathMatch(.*)*', redirect: '/' }
 ];
 
 const router = createRouter({
