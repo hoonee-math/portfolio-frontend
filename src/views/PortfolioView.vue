@@ -54,9 +54,9 @@ export default defineComponent({
             { id: 'home', label: '홈' },
             { id: 'about', label: '소개' },
             { id: 'projects', label: '프로젝트' },
-            { id: 'resume', label: '이력서' },
+            // { id: 'resume', label: '이력서' },
             { id: 'skills', label: '기술 스택' },
-            { id: 'contact', label: '연락처' }
+            // { id: 'contact', label: '연락처' }
         ];
 
         // 실제 섹션 컴포넌트 매핑
@@ -64,9 +64,9 @@ export default defineComponent({
             { id: 'home', component: HomeSection },
             { id: 'about', component: AboutSection },
             { id: 'projects', component: ProjectsSection },
-            { id: 'resume', component: ResumeSection },
+            // { id: 'resume', component: ResumeSection },
             { id: 'skills', component: SkillsSection },
-            { id: 'contact', component: ContactSection }
+            // { id: 'contact', component: ContactSection }
         ];
 
         // 스크롤 이벤트 핸들러
