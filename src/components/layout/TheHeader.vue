@@ -2,7 +2,13 @@
     <header class="header">
         <div class="logo">{{ title }}</div>
         <div class="header-actions">
-            <button @click="handleDownloadPdf" class="btn-primary">PDF 다운로드</button>
+            <a href="https://blog.naver.com/hoonee-math" target="_blank"  class="social-link">
+                <img src="/public/naver_blog.png" alt="naver_blog">
+            </a>
+            <a href="https://github.com/hoonee-math" target="_blank"  class="social-link">
+                <img src="/public/github.png" alt="github">
+            </a>
+            <button @click="handleDownloadPdf" class="btn-primary pdf-btn">PDF 다운로드</button>
         </div>
     </header>
 </template>
@@ -76,6 +82,16 @@ export default defineComponent({
             transform: translateY(-2px);
             box-shadow: vars.$shadow-sm;
         }
+    }
+}
+
+.header-actions img {
+    width: 24px;
+}
+
+.pdf-btn {
+    @media (max-width: 768px) {
+        display: none; /* 모바일 화면에서 PDF 버튼 숨김 */
     }
 }
 </style>
