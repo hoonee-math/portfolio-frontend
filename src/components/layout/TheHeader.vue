@@ -69,24 +69,57 @@ export default defineComponent({
 }
 
 .header-actions {
-    button {
-        background: vars.$gradient-primary;
-        color: vars.$white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: vars.$transition-base;
+    display: flex;
+    align-items: center;
+}
+/* 첫 번째 요소와 두 번째 요소 사이의 간격 조절 */
+.header-actions a:first-child {
+    margin-right: 6px; /* 첫 번째 요소의 오른쪽 여백을 줄임 */
+}
 
-        &:hover {
-            transform: translateY(-2px);
-            box-shadow: vars.$shadow-sm;
-        }
+/* 또는 다음과 같이 특정 요소에만 마진 적용 */
+.header-actions a:nth-child(2) {
+    margin-right: 16px; /* 두 번째 요소의 오른쪽 여백 추가 */
+    @media (max-width: 768px) {
+        margin-right: 0px;
     }
 }
 
-.header-actions img {
-    width: 24px;
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: vars.$transition-base;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: vars.$shadow-sm;
+    }
+
+    img {
+        width: 80%;
+        height: 100%;
+        object-fit: contain; // 이미지 비율 유지
+    }
+}
+
+.btn-primary {
+    background: vars.$gradient-primary;
+    color: vars.$white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: vars.$transition-base;
+    white-space: nowrap; // 줄바꿈 방지
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: vars.$shadow-sm;
+    }
 }
 
 .pdf-btn {
