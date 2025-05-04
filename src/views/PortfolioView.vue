@@ -71,19 +71,31 @@ export default defineComponent({
 
         // 스크롤 이벤트 핸들러
         const handleScroll = () => {
+            // 현재 스크롤 위치
             const scrollPosition = window.scrollY;
+            //console.log('스크롤 위치:', scrollPosition);
+
+            // 뷰포트 높이
+            const viewportHeight = window.innerHeight;
 
             // 각 섹션의 위치 확인
             const sectionWrappers = document.querySelectorAll('.section-wrapper');
+            //console.log('섹션 래퍼 수:', sectionWrappers.length);
+
+            // 각 섹션의 가시성 확인
             sectionWrappers.forEach((wrapper) => {
                 const element = wrapper as HTMLElement;
                 const sectionId = element.id.replace('-wrapper', '');
-                const sectionTop = element.offsetTop - 100; // 오프셋 적용
-                const sectionHeight = element.offsetHeight;
-
-                // 현재 스크롤 위치가 섹션 내에 있는지 확인
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                const rect = element.getBoundingClientRect();
+                
+                // 섹션이 화면에 표시되는지 확인 (상단이 화면 중앙보다 위에 있고, 하단이 화면에 표시됨)
+                const isVisible = (rect.top < viewportHeight / 2) && (rect.bottom > 0);
+                
+                //console.log(`섹션 ${sectionId}: top=${rect.top}, bottom=${rect.bottom}, 가시성=${isVisible}`);
+                
+                if (isVisible) {
                     if (activeSection.value !== sectionId) {
+                        //console.log('활성 섹션 변경:', activeSection.value, '->', sectionId);
                         activeSection.value = sectionId;
                     }
                 }
@@ -132,17 +144,27 @@ export default defineComponent({
 
         // 컴포넌트 마운트 시 이벤트 리스너 등록
         onMounted(() => {
-            window.addEventListener('scroll', handleScroll);
+            // 캡처 단계에서 이벤트 처리 (true를 추가)
+            window.addEventListener('scroll', handleScroll, { passive: true, capture: true });
             window.addEventListener('resize', handleResize);
 
             // 초기 화면 크기에 따른 사이드바 상태 설정
             handleResize();
 
+            // 약간 지연 후 초기 스크롤 위치에 따른 활성 섹션 설정
+            // DOM이 완전히 렌더링된 후 실행하기 위해 setTimeout 사용
+            setTimeout(() => {
+                handleScroll();
+            }, 100);
+
             // URL 해시가 있으면 해당 섹션으로 이동
             if (window.location.hash) {
                 const sectionId = window.location.hash.substring(1);
-                scrollToSection(sectionId);
-                updateActiveSection(sectionId);
+                // 약간 지연 후 스크롤 처리
+                setTimeout(() => {
+                    scrollToSection(sectionId);
+                    updateActiveSection(sectionId);
+                }, 200);
             }
         });
 
