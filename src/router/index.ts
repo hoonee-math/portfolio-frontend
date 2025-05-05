@@ -1,12 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 import PortfolioView from '../views/PortfolioView.vue'
+import TestView from '../views/TestView.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         name: 'portfolio',
         component: PortfolioView
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: () => import('../views/TestView.vue')
     },
     // 존재하지 않는 페이지 처리
     { path: '/:pathMatch(.*)*', redirect: '/' }
