@@ -2,7 +2,7 @@
     <section class="section" id="home">
         <div class="section-header">
             <h2 class="section-title">About Me</h2>
-            <p class="section-subtitle">제가 작업한 최근 프로젝트들입니다</p>
+            <p class="section-subtitle">현재 작업 중입니다.</p>
         </div>
         <div class="section-content">
             <img src="/슬라이드2.PNG" alt="포트폴리오 이미지" class="slide-image">

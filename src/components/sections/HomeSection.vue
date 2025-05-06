@@ -3,9 +3,9 @@
         <div class="section-content">
             <div class="text-center">
                 <ZoomImage src="/슬라이드1.PNG" alt="포트폴리오 이미지" additional-class="slide-image"/>
-                <h2 class="title">안녕하세요, 최광훈입니다!</h2>
+                <h2 class="title">안녕하십니까!</h2>
                 <p class="subtitle">
-                    창의적이고 혁신적인 웹 개발자입니다. 다양한 기술 스택을 활용하여 사용자 경험을 극대화하는 웹 애플리케이션을 개발합니다.
+                    창의적이고 혁신적인 웹 개발자 최광훈입니다. 다양한 기술 스택을 활용하여 사용자 경험을 극대화하는 웹 애플리케이션을 개발합니다.
                     <br>
                     스크롤을 내리거나 왼쪽 메뉴를 통해 제 포트폴리오를 확인해보세요.
                     <br>

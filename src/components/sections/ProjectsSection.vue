@@ -2,7 +2,7 @@
     <section class="section" id="projects">
         <div class="section-header">
             <h2 class="section-title">프로젝트</h2>
-            <p class="section-subtitle">제가 작업한 최근 프로젝트들입니다</p>
+            <p class="section-subtitle">현재 작업 중입니다.</p>
         </div>
 
         <div class="section-body">
