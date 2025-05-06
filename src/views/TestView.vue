@@ -14,7 +14,8 @@ export default {
     methods: {
         handleClick() {
             console.log('Button clicked!');
-            fetch('http://localhost:8080/api/test/name', {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            fetch(`${apiUrl}/test/name`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',}
