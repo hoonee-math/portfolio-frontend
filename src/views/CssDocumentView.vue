@@ -222,13 +222,12 @@ onBeforeUnmount(() => {
     margin-top: vars.$header-height;
     min-height: calc(100vh - vars.$header-height);
     position: relative;
-    margin-left: vars.$sidebar-width;
-    justify-content: center;
+    /* 컨테이너에 relative 위치 지정 */
 }
 
 .main-content {
-    // margin-left: vars.$sidebar-width;
-    width: 100%;
+    margin-left: vars.$sidebar-width;
+    width: calc(100% - vars.$sidebar-width);
     padding: 20px;
     transition: margin-left 0.3s ease, width 0.3s ease;
 
@@ -236,11 +235,11 @@ onBeforeUnmount(() => {
         margin-left: 0;
         width: 100%;
     }
-    
     @media (max-width: 992px) {
-        padding: 10px 5px;
+        padding: 10px 5px; /* 모바일에서 좌우 패딩 축소 */
     }
 }
+
 
 .section-wrapper {
     margin-bottom: 50px;

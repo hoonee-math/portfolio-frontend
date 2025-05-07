@@ -286,79 +286,27 @@ const alignItems = ref<'flex-start' | 'flex-end' | 'center' | 'stretch' | 'basel
 const flexWrap = ref<'nowrap' | 'wrap' | 'wrap-reverse'>('nowrap');
 // 각 스타일에 대한 computed 속성으로 스타일 객체 생성
 const flexDirectionStyle = computed<CSSProperties>(() => ({
-  flexDirection: flexDirection.value
+    flexDirection: flexDirection.value
 }));
 
 const justifyContentStyle = computed<CSSProperties>(() => ({
-  justifyContent: justifyContent.value
+    justifyContent: justifyContent.value
 }));
 
 const alignItemsStyle = computed<CSSProperties>(() => ({
-  alignItems: alignItems.value
+    alignItems: alignItems.value
 }));
 
 const flexWrapStyle = computed<CSSProperties>(() => ({
-  flexWrap: flexWrap.value
+    flexWrap: flexWrap.value
 }));
 </script>
 
-<style scoped>
+<style lang="scss">
+@use '@/assets/styles/documentation.scss';
+
 .flexbox-section {
     width: 100%;
-}
-
-.section-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.examples-container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    /* grid-template-columns: repeat(auto-fill, minmax(40%, 1fr)); */
-    gap: 30px;
-}
-
-@media (min-width: 768px) {
-    .examples-container {
-        grid-template-columns: repeat(2, 1fr);
-        /* grid-template-columns: repeat(1fr); */
-    }
-}
-
-.example-block {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.example-block h3 {
-    margin-top: 0;
-    color: #2c3e50;
-    font-size: 1.4rem;
-}
-
-.demo-container {
-    margin: 20px 0;
-    background-color: #edf2f7;
-    padding: 20px;
-    border-radius: 6px;
-    min-height: 120px;
-}
-
-.control-panel {
-    margin-bottom: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.control-panel label {
-    margin-right: 10px;
-    cursor: pointer;
 }
 
 .flex-container {
@@ -393,19 +341,6 @@ const flexWrapStyle = computed<CSSProperties>(() => ({
 
 .shrink-container {
     width: 100%;
-}
-
-.code-block {
-    background-color: #2c3e50;
-    border-radius: 6px;
-    padding: 15px;
-    overflow-x: auto;
-}
-
-.code-block code {
-    color: #f8f9fa;
-    font-family: monospace;
-    white-space: pre;
 }
 
 /* 카드 레이아웃 예시 스타일 */

@@ -109,64 +109,13 @@ function resetAnimation() {
 }
 </script>
 
-<style scoped>
-.example-block {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.example-block h3 {
-    margin-top: 0;
-    color: #2c3e50;
-    font-size: 1.4rem;
-}
-
-.demo-container {
-    margin: 20px 0;
-    background-color: #edf2f7;
-    padding: 20px;
-    border-radius: 6px;
-    min-height: 220px;
-}
-
+<style lang="scss">
+@use '@/assets/styles/documentation.scss';
 .control-panel {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.control-panel label {
-    margin-right: 10px;
-}
-
-.control-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
-    max-width: 150px;
-}
-
-.control-button:hover {
-    background-color: #2980b9;
-}
-
-.box {
-    width: 100px;
-    height: 60px;
-    background-color: #3498db;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border-radius: 4px;
 }
 
 @keyframes slide {
@@ -193,18 +142,5 @@ function resetAnimation() {
     justify-content: center;
     align-items: center;
     height: 100px;
-}
-
-.code-block {
-    background-color: #2c3e50;
-    border-radius: 6px;
-    padding: 15px;
-    overflow-x: auto;
-}
-
-.code-block code {
-    color: #f8f9fa;
-    font-family: monospace;
-    white-space: pre;
 }
 </style>

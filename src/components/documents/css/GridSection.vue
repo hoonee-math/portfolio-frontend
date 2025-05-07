@@ -267,7 +267,7 @@
                 <div class="code-block">
                     <pre><code>.gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 15px;
   }
   
@@ -336,7 +336,9 @@ const alignItems = ref('stretch');
 const autoType = ref('auto-fill');
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/assets/styles/documentation.scss';
+
 .grid-section {
     width: 100%;
 }
@@ -475,7 +477,7 @@ const autoType = ref('auto-fill');
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 15px;
 }
 

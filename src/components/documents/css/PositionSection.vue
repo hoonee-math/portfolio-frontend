@@ -153,54 +153,6 @@
     width: 100%;
 }
 
-.section-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.examples-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
-}
-
-.example-block {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.example-block h3 {
-    margin-top: 0;
-    color: #2c3e50;
-    font-size: 1.4rem;
-}
-
-.demo-container {
-    margin: 20px 0;
-    background-color: #edf2f7;
-    padding: 20px;
-    border-radius: 6px;
-    min-height: 120px;
-    position: relative;
-    overflow: hidden;
-}
-
-.box {
-    width: 100px;
-    height: 50px;
-    background-color: #3498db;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    border-radius: 4px;
-}
-
 .static-box {
     /* 기본 static */
 }
@@ -336,23 +288,4 @@
     color: white;
 }
 
-.code-block {
-    background-color: #2c3e50;
-    border-radius: 6px;
-    padding: 15px;
-    overflow-x: auto;
-}
-
-.code-block code {
-    color: #f8f9fa;
-    font-family: monospace;
-    white-space: pre;
-}
-
-/* 반응형 디자인 */
-@media (min-width: 768px) {
-    .examples-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 </style>

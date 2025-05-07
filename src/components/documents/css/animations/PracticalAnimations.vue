@@ -88,27 +88,8 @@ function toggleNotification() {
 }
 </script>
 
-<style scoped>
-.example-block {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.example-block h3 {
-    margin-top: 0;
-    color: #2c3e50;
-    font-size: 1.4rem;
-}
-
-.demo-container {
-    margin: 20px 0;
-    background-color: #edf2f7;
-    padding: 20px;
-    border-radius: 6px;
-    min-height: 200px;
-}
+<style lang="scss">
+@use '@/assets/styles/documentation.scss';
 
 .practical-examples {
     display: grid;
@@ -273,16 +254,4 @@ function toggleNotification() {
     left: 100%;
 }
 
-.code-block {
-    background-color: #2c3e50;
-    border-radius: 6px;
-    padding: 15px;
-    overflow-x: auto;
-}
-
-.code-block code {
-    color: #f8f9fa;
-    font-family: monospace;
-    white-space: pre;
-}
 </style>

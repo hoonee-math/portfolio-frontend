@@ -45,27 +45,17 @@ import PracticalAnimations from './animations/PracticalAnimations.vue';
 import ResponsiveAnimations from './animations/ResponsiveAnimations.vue';
 </script>
 
-<style scoped>
+<style lang="scss">
+@use '@/assets/styles/documentation.scss';
+
 .animation-section {
     width: 100%;
-}
+    max-width: 100%;
+    padding: 0 15px;
 
-.section-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.examples-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
-}
-
-@media (min-width: 768px) {
-    .examples-container {
-        grid-template-columns: repeat(2, 1fr);
+    @media (min-width: 768px) {
+        padding: 0;
     }
 }
+
 </style>
