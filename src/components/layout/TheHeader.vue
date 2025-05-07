@@ -3,10 +3,10 @@
         <div class="logo">{{ title }}</div>
         <div class="header-actions">
             <a href="https://blog.naver.com/hoonee-math" target="_blank"  class="social-link">
-                <img src="/public/naver_blog.png" alt="naver_blog">
+                <img src="/naver_blog.png" alt="naver_blog">
             </a>
             <a href="https://github.com/hoonee-math" target="_blank"  class="social-link">
-                <img src="/public/github.png" alt="github">
+                <img src="/github.png" alt="github">
             </a>
             <button @click="handleDownloadPdf" class="btn-primary pdf-btn">PDF 다운로드</button>
         </div>
