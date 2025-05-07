@@ -67,6 +67,10 @@ button {
     // max-width: 1140px;
     max-width: 1400px;
   }
+  @media (min-width: vars.$breakpoint-xxl) {
+    // max-width: 1140px;
+    max-width: 1800px;
+  }
 }
 
 // 유틸리티 클래스

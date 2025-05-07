@@ -29,6 +29,8 @@
     @media (min-width: vars.$breakpoint-lg) { @content; }
   } @else if $breakpoint == 'xl' {
     @media (min-width: vars.$breakpoint-xl) { @content; }
+  } @else if $breakpoint == 'xxl' {
+    @media (min-width: vars.$breakpoint-xxl) { @content; }
   }
 }
 
