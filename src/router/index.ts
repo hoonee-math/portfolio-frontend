@@ -14,6 +14,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'test',
         component: () => import('../views/TestView.vue')
     },
+    {
+        path: '/css',
+        name: 'css',
+        component: () => import('../views/CssDocumentView.vue')
+    },
     // 존재하지 않는 페이지 처리
     { path: '/:pathMatch(.*)*', redirect: '/' }
 ];
