@@ -45,9 +45,9 @@ import FlexboxSection from '@/components/documents/css/FlexboxSection.vue';
 import GridSection from '@/components/documents/css/GridSection.vue';
 import TransformSection from '@/components/documents/css/TransformSection.vue';
 import AnimationSection from '@/components/documents/css/AnimationSection.vue';
-import TransitionSection from '@/components/documents/css/TransitionSection.vue';
-import MediaQuerySection from '@/components/documents/css/MediaQuerySection.vue';
-import CssVariablesSection from '@/components/documents/css/CssVariablesSection.vue';
+// import TransitionSection from '@/components/documents/css/TransitionSection.vue';
+// import MediaQuerySection from '@/components/documents/css/MediaQuerySection.vue';
+// import CssVariablesSection from '@/components/documents/css/CssVariablesSection.vue';
 
 // 상태 관리
 const title = ref('CSS 문서');

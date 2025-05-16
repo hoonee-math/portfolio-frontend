@@ -11,6 +11,10 @@
                     <br>
                     <br>
                     현재 페이지는 계속 업데이트가 진행되고 있습니다.
+                    <br>자격증 준비 관계로 5월 16일 까지 업데이트 진행이 지연될 수 있습니다.
+
+                    <br> <strong>이력서에 첨부한 PDF 파일</strong>을 확인하시면 더 <u>자세한 정보</u>를 확인하실 수 있습니다.
+                    <br>
                     <br> 모바일 환경에서는 이미지가 작을 수 있습니다.
                 </p>
             </div>
@@ -35,6 +39,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 @use '@/assets/styles/variables' as vars;
 @use '@/assets/styles/utils' as utils;
+
+strong {
+  color: red;
+}
 
 .section {
   @include utils.section-style;
