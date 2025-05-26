@@ -69,6 +69,15 @@ export default defineComponent({
         // 업데이트 내역 (실제 내용으로 변경하세요)
         const updateItems = ref<UpdateItem[]>([
             {
+                type: 'new',
+                text: '업데이트 내역 모달 컴포넌트 추가'
+            },
+            {
+                type: 'new',
+                text: `PDF 다운로드 기능이 추가 되었습니다.
+                    PDF 파일에는 보다 자세한 정보가 포함되어 있습니다.`
+            },
+            {
                 type: 'improvement',
                 text: '프로젝트 상세 모달에 이미지 슬라이더 기능 추가'
             },
@@ -76,10 +85,6 @@ export default defineComponent({
                 type: 'improvement',
                 text: '아키텍처 및 주요 기능 소개 섹션 추가'
             },
-            {
-                type: 'new',
-                text: '업데이트 내역 모달 컴포넌트 추가'
-            }
         ]);
 
         // 배지 텍스트 반환
