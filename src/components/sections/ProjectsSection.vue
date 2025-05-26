@@ -24,18 +24,81 @@
             </div>
         </div>
 
-        <!-- 모달 추가 -->
+        <!-- 개선된 모달 -->
         <div v-if="showModal" class="modal-overlay" @click="closeModal">
             <div class="modal-content" @click.stop>
-                <h3>프로젝트 링크</h3>
-                <p><strong>{{ selectedProject.title }}</strong> 프로젝트 페이지로 이동하시겠습니까?</p>
-                <p v-if="selectedProject.src" class="modal-url">{{ selectedProject.src }}</p>
-                <p v-else class="modal-unavailable">링크가 제공되지 않는 프로젝트입니다.</p>
-                <div class="modal-actions">
-                    <button class="btn-cancel" @click="closeModal">취소</button>
-                    <button v-if="selectedProject.src" class="btn-confirm" @click="navigateToLink">
-                        이동하기
+                <div class="modal-header">
+                    <h3 class="modal-title">{{ selectedProject.title }}</h3>
+                    <button class="modal-close" @click="closeModal">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <!-- 이미지 슬라이더 -->
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <div class="slider-wrapper" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+                                <div v-for="(image, index) in selectedProject.images" :key="index" class="slide">
+                                    <img :src="image.src" :alt="image.alt" class="slide-image">
+                                    <div class="slide-caption">{{ image.caption }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 슬라이더 컨트롤 -->
+                        <button v-if="selectedProject.images && selectedProject.images.length > 1" 
+                                class="slider-btn prev" @click="prevSlide">
+                            &#10094;
+                        </button>
+                        <button v-if="selectedProject.images && selectedProject.images.length > 1" 
+                                class="slider-btn next" @click="nextSlide">
+                            &#10095;
+                        </button>
+                        
+                        <!-- 인디케이터 -->
+                        <div v-if="selectedProject.images && selectedProject.images.length > 1" class="slider-indicators">
+                            <button v-for="(image, index) in selectedProject.images" 
+                                    :key="index" 
+                                    class="indicator"
+                                    :class="{ active: index === currentSlide }"
+                                    @click="goToSlide(index)">
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 프로젝트 상세 정보 -->
+                    <div class="project-details">
+                        <div class="project-description">
+                            <h4>프로젝트 소개</h4>
+                            <p>{{ selectedProject.fullDescription || selectedProject.description }}</p>
+                        </div>
+                                            
+                        <div v-if="selectedProject.features && selectedProject.features.length" class="project-features">
+                            <h4>주요 기능</h4>
+                            <ul>
+                                <li v-for="(feature, index) in selectedProject.features" :key="index">
+                                    {{ feature }}
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="project-tech-stack">
+                            <h4>기술 스택</h4>
+                            <div class="tech-tags">
+                                <span v-for="(tag, index) in selectedProject.tags" :key="index" class="tech-tag">
+                                    {{ tag }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 모달 푸터 -->
+                <div class="modal-footer">
+                    <button class="btn-close" @click="closeModal">닫기</button>
+                    <button v-if="selectedProject.src" class="btn-visit" @click="navigateToLink">
+                        사이트 방문하기
                     </button>
+                    <span v-else class="unavailable-notice">사이트 링크가 제공되지 않습니다</span>
                 </div>
             </div>
         </div>
@@ -46,12 +109,22 @@
 import { defineComponent, ref } from 'vue';
 import PageNumber from '@/components/ui/PageNumber.vue';
 
+interface ProjectImage {
+    src: string;
+    alt: string;
+    caption: string;
+}
+
 interface Project {
     title: string;
     description: string;
+    fullDescription?: string;
     image: string;
+    images?: ProjectImage[];
     tags: string[];
-    src?: string; // 선택적 속성
+    src?: string;
+    architecture?: string;
+    features?: string[];
 }
 
 export default defineComponent({
@@ -60,7 +133,7 @@ export default defineComponent({
         PageNumber
     },
     setup() {
-        // 모달 관련 상태 추가
+        // 모달 관련 상태
         const showModal = ref(false);
         const selectedProject = ref<Project>({
             title: '',
@@ -68,58 +141,138 @@ export default defineComponent({
             image: '',
             tags: []
         });
+        
+        // 슬라이더 관련 상태
+        const currentSlide = ref(0);
 
-        // 프로젝트 데이터
+        // 프로젝트 데이터 (이미지와 상세 정보 추가)
         const projects = ref([
+            {
+                title: '개인 서버, 포트폴리오 웹사이트',
+                description: '개인 서버를 활용한 포트폴리오 웹사이트입니다.',
+                fullDescription: '개인 서버를 구축하여 포트폴리오 웹사이트를 운영하고 있습니다. 다양한 프로젝트와 기술 스택을 소개하며, 지속적으로 업데이트하고 있습니다.',
+                image: '/Architecture_MyServer.png',
+                images: [
+                    { src: '/Architecture_MyServer.png', alt: '메인 화면', caption: '메인 화면 - 문제은행 검색 및 카테고리' }
+                ],
+                tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'MySql', 'Docker-compose', 'Nginx', 'Linux-ubuntu',],
+                src: 'https://hoonee-math.info',
+                features: [
+                    '개인 서버 구축 및 운영',
+                    '포트폴리오 웹사이트 개발',
+                    '다양한 프로젝트 소개 및 기술 스택 공유'
+                ]
+            },
             {
                 title: '천재의 서재',
                 description: '천재교육 문제은행 API를 활용한 문제은행 웹사이트입니다.',
+                fullDescription: '천재교육에서 제공하는 문제은행 API를 활용하여 학생들이 다양한 문제를 풀어볼 수 있는 웹사이트를 개발했습니다. 사용자 친화적인 UI와 효율적인 문제 검색 기능을 제공합니다.',
                 image: '/천재의서재.png',
+                images: [
+                    { src: '/천재의서재.png', alt: '메인 화면', caption: '메인 화면 - 문제은행 검색 및 카테고리' },
+                    { src: '/Architecture_천재의서재.png', alt: '천재의 서재 아키텍처', caption: '천재의 서재 아키텍처' },
+                ],
                 tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
-                src: 'http://43.202.6.90:3000/home'
+                src: 'http://43.202.6.90:3000/home',
+                features: [
+                    '천재교육 API 연동을 통한 실시간 문제 데이터 조회',
+                    '교과서별, 단원별 문제 조회 민 학습지 제작',
+                    '학습지 저장, 수정, 다운로드 기능'
+                ]
             },
             {
                 title: 'GenieQ',
                 description: '비문학 지문 및 문항 AI 생성 서비스',
+                fullDescription: 'AI 기술을 활용하여 비문학 지문과 관련 문항을 자동으로 생성하는 서비스입니다. 교육자들이 보다 효율적으로 교육 자료를 제작할 수 있도록 돕습니다.',
                 image: '/genieq.png',
+                images: [
+                    { src: '/genieq.png', alt: 'GenieQ 메인', caption: 'GenieQ 메인 화면' },
+                    { src: '/Architecture_GenieQ.png', alt: 'GeineQ 아키텍처', caption: 'GeineQ 아키텍처' },
+                    { src: '/genieq-결과.png', alt: '생성 결과', caption: '생성된 문제 결과 화면' }
+                ],
                 tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
-                src: 'http://43.202.6.90/team/genius/kwanghoon'
+                src: 'http://43.202.6.90/team/genius/kwanghoon',
+                features: [
+                    'AI 기반 비문학 지문 자동 생성',
+                    '생성된 지문에 맞는 문항 자동 생성',
+                    '생성 이력 관리 및 재편집 기능',
+                    '다양한 난이도별 문제 생성 옵션'
+                ]
             },
             {
                 title: '시범강의 예약 시스템',
                 description: '해법수학 학생 전용 시범강의 예약 시스템',
+                fullDescription: '해법수학 학원의 시범강의를 온라인으로 예약할 수 있는 시스템입니다. 학생과 학부모가 편리하게 시범강의를 예약하고 관리할 수 있습니다.',
                 image: '/reservation.png',
+                images: [
+                    { src: '/reservation.png', alt: '예약 시스템 메인', caption: '예약 시스템 메인 화면' },
+                ],
                 tags: ['JSP', 'java', 'Spring-Legacy', 'JPA', 'OracleDB', 'AWS', 'Docker'],
-                src: 'http://43.202.6.90:8080/reservation/'
+                src: 'http://43.202.6.90:8080/reservation/',
+                features: [
+                    '실시간 강의 일정 확인 및 예약',
+                    '학생별 예약 이력 관리',
+                    '강사별 일정 관리 시스템',
+                    '예약 확인 및 취소 기능'
+                ]
             },
             {
                 title: 'HoneyT',
                 description: 'zoom을 활용한 실시간 온라인 강의 웹 서비스',
+                fullDescription: 'Zoom을 연동하여 실시간 온라인 강의를 진행할 수 있는 플랫폼입니다. 강사와 학생 간의 원활한 소통을 위한 다양한 기능을 제공합니다.',
                 image: '/honeyT.png',
-                tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+                images: [
+                    { src: '/honeyT.png', alt: 'HoneyT 메인', caption: 'HoneyT 메인 화면' },
+                ],
+                tags: ['JSP', 'java', 'myBatis', 'OracleDB'],
+                features: [
+                    'Zoom API 연동을 통한 실시간 화상 강의',
+                    '강의 일정 관리 및 예약 시스템',
+                ]
             },
             {
                 title: '티꿀모아',
                 description: '학교와 학원 선생님들을 위한 교보재 중고거래 플랫폼',
+                fullDescription: '교육 현장의 선생님들이 필요한 교보재를 효율적으로 거래할 수 있는 전용 플랫폼입니다. 신뢰할 수 있는 교육자 간의 안전한 거래를 지원합니다.',
                 image: '/Thoneymoa.png',
-                tags: ['JSP', 'java', 'myBatis', 'OracleDB']
+                images: [
+                    { src: '/Thoneymoa.png', alt: '티꿀모아 메인', caption: '티꿀모아 메인 화면' }
+                ],
+                tags: ['JSP', 'java', 'myBatis', 'OracleDB'],
+                features: [
+                    '교보재 카테고리별 분류 및 검색',
+                    '안전한 거래를 위한 평점 시스템',
+                    '지역별 거래 매칭 서비스'
+                ]
             },
             {
                 title: '맘스티처',
                 description: '다양한 정보를 공유할 수 있는 학부모 커뮤니티 웹 서비스',
+                fullDescription: '학부모들이 교육 정보와 육아 팁을 공유하고 소통할 수 있는 커뮤니티 플랫폼입니다. 지역별, 관심사별로 다양한 정보를 나눌 수 있습니다.',
                 image: '/momsT.png',
-                tags: ['JSP', 'java', 'myBatis', 'OracleDB']
-            },
+                images: [
+                    { src: '/momsT.png', alt: '맘스티처 메인', caption: '맘스티처 메인 화면' }
+                ],
+                tags: ['JSP', 'java', 'myBatis', 'OracleDB'],
+                features: [
+                    '지역별 학부모 커뮤니티 구성',
+                    '교육 정보 및 육아 팁 공유',
+                    '학교별 정보 게시판'
+                ]
+            }
         ] as Project[]);
+
         // 모달 열기
         const openModal = (project: Project) => {
             selectedProject.value = project;
+            currentSlide.value = 0;
             showModal.value = true;
         };
 
         // 모달 닫기
         const closeModal = () => {
             showModal.value = false;
+            currentSlide.value = 0;
         };
 
         // 링크로 이동
@@ -130,13 +283,36 @@ export default defineComponent({
             closeModal();
         };
 
+        // 슬라이더 함수들
+        const nextSlide = () => {
+            if (selectedProject.value.images) {
+                currentSlide.value = (currentSlide.value + 1) % selectedProject.value.images.length;
+            }
+        };
+
+        const prevSlide = () => {
+            if (selectedProject.value.images) {
+                currentSlide.value = currentSlide.value === 0 
+                    ? selectedProject.value.images.length - 1 
+                    : currentSlide.value - 1;
+            }
+        };
+
+        const goToSlide = (index: number) => {
+            currentSlide.value = index;
+        };
+
         return {
             projects,
             showModal,
             selectedProject,
+            currentSlide,
             openModal,
             closeModal,
-            navigateToLink
+            navigateToLink,
+            nextSlide,
+            prevSlide,
+            goToSlide
         };
     }
 });
@@ -148,22 +324,11 @@ export default defineComponent({
 
 .section {
     @include utils.section-style;
-    // height: 800px;
-    // position: relative;
     overflow-y: auto;
 
     @media (max-width: 768px) {
         padding: 20px 12px;
-        /* 모바일에서 좌우 패딩 축소 */
     }
-}
-
-.slide-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: vars.$shadow;
-    margin-bottom: 2rem;
 }
 
 .section-header {
@@ -261,7 +426,7 @@ export default defineComponent({
     border-radius: 50px;
 }
 
-/* 모달 스타일 */
+/* 개선된 모달 스타일 */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -273,56 +438,270 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 20px;
 }
 
 .modal-content {
     background-color: white;
-    border-radius: 8px;
-    padding: 24px;
+    border-radius: 12px;
     width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
-.modal-url {
-    margin: 16px 0;
-    padding: 8px 12px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    word-break: break-all;
-}
-
-.modal-unavailable {
-    margin: 16px 0;
-    padding: 8px 12px;
-    background-color: #ffebee;
-    border-radius: 4px;
-    color: #d32f2f;
-}
-
-.modal-actions {
+.modal-header {
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 24px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 24px;
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: vars.$text-color;
+        margin: 0;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: vars.$gray-500;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: vars.$gray-100;
+        }
+    }
 }
 
-.btn-cancel,
-.btn-confirm {
+.modal-body {
+    padding: 0 24px;
+}
+
+/* 이미지 슬라이더 스타일 */
+.image-slider {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.slider-container {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.slide {
+    min-width: 100%;
+    text-align: center;
+}
+
+.slide-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.slide-caption {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
     padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
     border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: white;
+    }
+
+    &.prev {
+        left: 10px;
+    }
+
+    &.next {
+        right: 10px;
+    }
 }
 
-.btn-cancel {
-    background-color: #f1f1f1;
-    color: #333;
+.slider-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+
+    .indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: none;
+        background-color: vars.$gray-300;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &.active {
+            background-color: vars.$primary-color;
+        }
+    }
 }
 
-.btn-confirm {
+/* 프로젝트 상세 정보 스타일 */
+.project-details {
+    h4 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: vars.$text-color;
+        font-weight: 600;
+    }
+
+    p {
+        color: vars.$gray-600;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        color: vars.$gray-600;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 4px;
+    }
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tech-tag {
     background: linear-gradient(45deg, vars.$primary-color, vars.$secondary-color);
     color: white;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* 모달 푸터 스타일 */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-top: 1px solid #eee;
+    margin-top: 24px;
+
+    .btn-close {
+        background-color: vars.$gray-200;
+        color: vars.$gray-700;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: vars.$gray-300;
+        }
+    }
+
+    .btn-visit {
+        background: linear-gradient(45deg, vars.$primary-color, vars.$secondary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+    }
+
+    .unavailable-notice {
+        color: vars.$gray-500;
+        font-size: 0.9rem;
+        font-style: italic;
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .modal-header {
+        padding: 16px 16px 0;
+        
+        .modal-title {
+            font-size: 1.3rem;
+        }
+    }
+
+    .modal-body {
+        padding: 0 16px;
+    }
+
+    .modal-footer {
+        padding: 16px;
+        flex-direction: column;
+        gap: 12px;
+        
+        .btn-close,
+        .btn-visit {
+            width: 100%;
+        }
+    }
+
+    .slide-image {
+        height: 200px;
+    }
+
+    .slider-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
 }
 </style>
