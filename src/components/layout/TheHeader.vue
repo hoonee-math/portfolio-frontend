@@ -8,7 +8,9 @@
             <a href="https://github.com/hoonee-math" target="_blank"  class="social-link">
                 <img src="/github.png" alt="github">
             </a>
-            <button @click="handleDownloadPdf" class="btn-primary pdf-btn">PDF 다운로드</button>
+            <button @click="handleDownloadPdf" class="btn-primary pdf-btn" :disabled="isDownloading">
+                {{ isDownloading ? '다운로드 중...' : 'PDF 다운로드' }}
+            </button>
         </div>
     </header>
 </template>
@@ -24,22 +26,64 @@ export default defineComponent({
             type: String,
             default: 'Portfolio'
         },
-        contentId: {
+        pdfFilename: {
             type: String,
-            default: 'content-to-pdf'
+            default: '최광훈_포트폴리오.pdf'
         }
     },
+    data() {
+        return {
+            isDownloading: false
+        };
+    },
     methods: {
-        handleDownloadPdf(): void {
-            const contentElement = document.getElementById(this.contentId);
+        async handleDownloadPdf(): Promise<void> {
+            if (this.isDownloading) return;
+            
+            this.isDownloading = true;
+            
+            try {
+                // 한글 파일명 URL 인코딩 처리
+                const encodedFilename = encodeURIComponent(this.pdfFilename);
+                
+                // API 호출
+                const apiUrl = import.meta.env.VITE_API_URL;
+                const response = await fetch(`${apiUrl}/download/pdf/${encodedFilename}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/pdf'
+                    }
+                });
 
-            if (contentElement) {
-                // PDF 다운로드 서비스 호출
-                // PdfService.downloadPdf(contentElement, {
-                //     filename: '포트폴리오.pdf'
-                // });
-            } else {
-                console.error(`ID가 '${this.contentId}'인 요소를 찾을 수 없습니다.`);
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('PDF 파일을 찾을 수 없습니다.');
+                    }
+                    throw new Error('PDF 다운로드에 실패했습니다.');
+                }
+
+                // Blob으로 변환
+                const blob = await response.blob();
+                
+                // 다운로드 링크 생성
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = this.pdfFilename;
+                
+                // 다운로드 실행
+                document.body.appendChild(link);
+                link.click();
+                
+                // 정리
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+                
+            } catch (error) {
+                console.error('PDF 다운로드 오류:', error);
+                alert(error instanceof Error ? error.message : 'PDF 다운로드 중 오류가 발생했습니다.');
+            } finally {
+                this.isDownloading = false;
             }
         }
     }
