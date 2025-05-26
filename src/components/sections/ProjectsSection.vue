@@ -38,7 +38,7 @@
                         <div class="slider-container">
                             <div class="slider-wrapper" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
                                 <div v-for="(image, index) in selectedProject.images" :key="index" class="slide">
-                                    <img :src="image.src" :alt="image.alt" class="slide-image">
+                                    <img :src="image.src" :alt="image.alt" class="slide-image" @click="openImageInNewTab(image.src)">
                                     <div class="slide-caption">{{ image.caption }}</div>
                                 </div>
                             </div>
@@ -302,6 +302,10 @@ export default defineComponent({
             currentSlide.value = index;
         };
 
+        const openImageInNewTab = (imageSrc: string) => {
+            window.open(imageSrc, '_blank');
+        };
+        
         return {
             projects,
             showModal,
@@ -312,7 +316,8 @@ export default defineComponent({
             navigateToLink,
             nextSlide,
             prevSlide,
-            goToSlide
+            goToSlide,
+            openImageInNewTab
         };
     }
 });
@@ -516,6 +521,7 @@ export default defineComponent({
     width: 100%;
     height: 300px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .slide-caption {
