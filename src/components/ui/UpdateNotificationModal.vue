@@ -56,21 +56,34 @@ interface UpdateItem {
     text: string;
 }
 
+interface UpdateGroup {
+    date: string;
+    items: UpdateItem[];
+}
+
 export default defineComponent({
     name: 'UpdateNotificationModal',
     setup() {
         const isVisible = ref(false);
         const dontShowToday = ref(false);
-        
-        // 업데이트 날짜 (실제 업데이트 날짜로 변경하세요)
-        const updateDate = ref('2025.05.26');
-        
-        // 업데이트 내역 (실제 내용으로 변경하세요)
-        const updateItems = ref<UpdateItem[]>([
-            { type: 'new', text: '업데이트 내역 모달 컴포넌트 추가' },
-            { type: 'new', text: `PDF 다운로드 기능이 추가 되었습니다. PDF 파일에는 보다 자세한 정보가 포함되어 있습니다.` },
-            { type: 'improvement', text: '프로젝트 상세 모달에 이미지 슬라이더 기능 추가' },
-            { type: 'improvement', text: '아키텍처 및 주요 기능 소개 섹션 추가'  },
+
+        // 기존 단일 업데이트에서 배열로 변경
+        const updateGroups = ref<UpdateGroup[]>([
+            {
+                date: '2025.05.27',
+                items: [
+                    { type: 'improvement', text: '업데이트 내역 모달 스크롤 개선, UI/UX 개선' }
+                ]
+            },
+            {
+                date: '2025.05.26',
+                items: [
+                    { type: 'new', text: '업데이트 내역 모달 컴포넌트 추가' },
+                    { type: 'new', text: 'PDF 다운로드 기능이 추가 되었습니다. PDF 파일에는 보다 자세한 정보가 포함되어 있습니다.' },
+                    { type: 'improvement', text: '프로젝트 상세 모달에 이미지 슬라이더 기능 추가' },
+                    { type: 'improvement', text: '아키텍처 및 주요 기능 소개 섹션 추가' }
+                ]
+            }
         ]);
 
         // 배지 텍스트 반환
