@@ -11,18 +11,17 @@
             
             <div class="modal-body">
                 <div class="update-content">
-                    <div class="update-date">{{ updateDate }}</div>
-                    <h4>새로운 기능이 추가되었습니다!</h4>
-                    
-                    <div class="update-list">
-                        <div v-for="(update, index) in updateItems" :key="index" class="update-item">
-                            <span class="update-badge" :class="update.type">{{ getBadgeText(update.type) }}</span>
-                            <span class="update-text">{{ update.text }}</span>
+        
+                    <!-- 날짜별 업데이트 그룹 반복 -->
+                    <div v-for="(group, groupIndex) in updateGroups" :key="groupIndex" class="update-group">
+                        <div class="update-date">{{ group.date }}</div>
+                        
+                        <div class="update-list">
+                            <div v-for="(update, index) in group.items" :key="index" class="update-item">
+                                <span class="update-badge" :class="update.type">{{ getBadgeText(update.type) }}</span>
+                                <span class="update-text">{{ update.text }}</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="update-note">
-                        <p>더 멋진 사이트를 만들기 위해 노력하고 있습니다. 감사합니다! 😊</p>
                     </div>
                 </div>
             </div>
@@ -79,7 +78,7 @@ export default defineComponent({
                 date: '2025.05.26',
                 items: [
                     { type: 'new', text: '업데이트 내역 모달 컴포넌트 추가' },
-                    { type: 'new', text: 'PDF 다운로드 기능이 추가 되었습니다. PDF 파일에는 보다 자세한 정보가 포함되어 있습니다.' },
+                    { type: 'new', text: 'PDF 다운로드 가능\nPDF 에는 더 많은 정보가 포함되어 있습니다' },
                     { type: 'improvement', text: '프로젝트 상세 모달에 이미지 슬라이더 기능 추가' },
                     { type: 'improvement', text: '아키텍처 및 주요 기능 소개 섹션 추가' }
                 ]
@@ -112,9 +111,10 @@ export default defineComponent({
                 return false;
             }
             
-            // 이미 본 업데이트인지 체크
+            // 이미 본 업데이트인지 체크 // 최신 업데이트 그룹의 날짜와 항목 수로 버전 키 생성
+            const latestGroup = updateGroups.value[0]; // 첫 번째가 최신
+            const currentUpdateKey = `${latestGroup.date}_${latestGroup.items.length}`;
             const lastSeenUpdate = localStorage.getItem('updateModal_lastSeen');
-            const currentUpdateKey = `${updateDate.value}_${updateItems.value.length}`;
             
             return true; //lastSeenUpdate !== currentUpdateKey;
         };
@@ -131,8 +131,9 @@ export default defineComponent({
 
         // 모달 닫기
         const closeModal = () => {
-            // 현재 업데이트를 본 것으로 표시
-            const currentUpdateKey = `${updateDate.value}_${updateItems.value.length}`;
+            // 현재 업데이트를 본 것으로 표시 // 최신 업데이트 그룹 기준으로 본 것으로 표시
+            const latestGroup = updateGroups.value[0]; // 첫 번째가 최신
+            const currentUpdateKey = `${latestGroup.date}_${latestGroup.items.length}`;
             localStorage.setItem('updateModal_lastSeen', currentUpdateKey);
             
             isVisible.value = false;
@@ -151,8 +152,7 @@ export default defineComponent({
         return {
             isVisible,
             dontShowToday,
-            updateDate,
-            updateItems,
+            updateGroups,
             getBadgeText,
             handleDontShowChange,
             closeModal
@@ -255,6 +255,14 @@ export default defineComponent({
     //overflow-y: auto;   // 본문만 스크롤
 }
 
+.update-group {
+    margin-bottom: 24px;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
 .update-date {
     background: linear-gradient(45deg, vars.$primary-color, vars.$secondary-color);
     color: white;
@@ -316,6 +324,7 @@ export default defineComponent({
         color: vars.$gray-700;
         line-height: 1.5;
         flex: 1;
+        white-space: pre-line;
     }
 }
 
