@@ -107,7 +107,7 @@ export default defineComponent({
         const checkShouldShow = (): boolean => {
             const lastHiddenDate = localStorage.getItem('updateModal_lastHidden');
             const todayString = getTodayString();
-            
+            console.log("lastHiddenDate:", lastHiddenDate, "todayString:", todayString);
             // 오늘 하루 열지 않기가 체크되어 있고, 오늘 날짜와 같다면 표시하지 않음
             if (lastHiddenDate === todayString) {
                 return false;
@@ -117,7 +117,7 @@ export default defineComponent({
             const lastSeenUpdate = localStorage.getItem('updateModal_lastSeen');
             const currentUpdateKey = `${updateDate.value}_${updateItems.value.length}`;
             
-            return lastSeenUpdate !== currentUpdateKey;
+            return true; //lastSeenUpdate !== currentUpdateKey;
         };
 
         // "오늘 하루 열지 않기" 체크박스 변경 처리
