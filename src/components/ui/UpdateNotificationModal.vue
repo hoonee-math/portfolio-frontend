@@ -186,9 +186,11 @@ export default defineComponent({
     width: 90%;
     max-width: 500px;
     max-height: 80vh;
-    overflow-y: auto;
+    // overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: modalAppear 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
 }
 
 @keyframes modalAppear {
@@ -208,6 +210,7 @@ export default defineComponent({
     align-items: center;
     padding: 24px 24px 16px;
     border-bottom: 1px solid #eee;
+    flex-shrink: 0;  // 줄어들지 않게
 
     .modal-title {
         font-size: 1.4rem;
@@ -246,8 +249,11 @@ export default defineComponent({
 
 .modal-body {
     padding: 16px 24px;
-    max-height: 400px;  // 본문 높이 제한
-    overflow-y: auto;   // 본문만 스크롤
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;     // flex 아이템이 줄어들 수 있게 추가
+    //max-height: 400px;  // 본문 높이 제한
+    //overflow-y: auto;   // 본문만 스크롤
 }
 
 .update-date {
@@ -334,6 +340,7 @@ export default defineComponent({
     align-items: center;
     padding: 16px 24px 24px;
     border-top: 1px solid #eee;
+    flex-shrink: 0;  // 줄어들지 않게
 }
 
 .dont-show-today {
