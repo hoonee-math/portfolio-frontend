@@ -5,7 +5,7 @@
             <p class="section-subtitle"></p>
         </div>
         <div class="section-content">
-            <img src="/슬라이드1.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/image/portfolio/슬라이드1.PNG" alt="포트폴리오 이미지" class="slide-image">
         </div>
     </section>
 </template>

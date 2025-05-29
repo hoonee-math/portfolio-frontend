@@ -31,3 +31,4 @@ coverage
 .treeignore
 *merged.md
 슬라이드*
+.git/*

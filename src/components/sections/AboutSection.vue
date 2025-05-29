@@ -5,10 +5,10 @@
             <p class="section-subtitle">현재 작업 중입니다.</p>
         </div>
         <div class="section-content">
-            <img src="/슬라이드2.PNG" alt="포트폴리오 이미지" class="slide-image">
-            <img src="/슬라이드3.PNG" alt="포트폴리오 이미지" class="slide-image">
-            <img src="/슬라이드4.PNG" alt="포트폴리오 이미지" class="slide-image">
-            <img src="/슬라이드5.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/image/portfolio/슬라이드2.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/image/portfolio/슬라이드3.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/image/portfolio/슬라이드4.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/image/portfolio/슬라이드5.PNG" alt="포트폴리오 이미지" class="slide-image">
         </div>
     </section>
 </template>

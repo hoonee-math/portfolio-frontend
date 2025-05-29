@@ -1,6 +1,6 @@
 ## 포트폴리오를 배포중인 개인 서버 아키텍처
 
-![alt text](public/Architecture.jpg)
+![alt text](public/image/architecture/Architecture.jpg)
 
 ## 포트폴리오 바로가기 → [http://www.hoonee-math.info](http://www.hoonee-math.info/portfolio/)
 
