@@ -259,6 +259,21 @@ export default defineComponent({
                     '교육 정보 및 육아 팁 공유',
                     '학교별 정보 게시판'
                 ]
+            },
+            {
+                title: 'AI 임계값 경보 시스템',
+                description: '인구 밀집 지역의 AI 기반 임계값 경보 시스템',
+                fullDescription: '인구 밀집 지역에서 발생할 수 있는 다양한 위험 요소를 AI 기술을 활용하여 실시간으로 모니터링하고 경고하는 시스템입니다. 안전한 도시 환경을 위한 필수 서비스입니다.',
+                image: '/image/project/emergency.png',
+                images: [
+                    { src: '/image/project/emergency.png', alt: 'ai emergency 메인', caption: 'ai emergency main' }
+                ],
+                tags: ['python', 'yolo', 'pip', '화소처리기법'],
+                features: [
+                    '실시간 인구 밀집 지역 모니터링',
+                    '객체 종류, 객체 수에 따른 임계값 설정',
+                    'python yolo 모델을 활용한 객체 인식'
+                ]
             }
         ] as Project[]);
 
