@@ -2,7 +2,7 @@
     <section class="section" id="projects">
         <div class="section-header">
             <h2 class="section-title">프로젝트</h2>
-            <p class="section-subtitle">현재 작업 중입니다.</p>
+            <p class="section-subtitle">프로젝트를 선택하여 자세한 내용을 확인해볼 수 있습니다.</p>
         </div>
 
         <div class="section-body">

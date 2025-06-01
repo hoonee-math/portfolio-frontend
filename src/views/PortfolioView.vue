@@ -28,6 +28,7 @@ import TheSidebar from '@/components/layout/TheSidebar.vue';
 import SectionWrapper from '@/components/ui/SectionWrapper.vue';
 import HomeSection from '@/components/sections/HomeSection.vue';
 import ProjectsSection from '@/components/sections/ProjectsSection.vue';
+import CredentialSection from '@/components/sections/CredentialSection.vue';
 
 import AboutSection from '@/components/sections/AboutSection.vue';
 import ResumeSection from '@/components/sections/ResumeSection.vue';
@@ -56,7 +57,8 @@ export default defineComponent({
             { id: 'projects', label: '프로젝트' },
             // { id: 'resume', label: '이력서' },
             { id: 'skills', label: '기술 스택' },
-            // { id: 'contact', label: '연락처' }
+            // { id: 'contact', label: '연락처' },
+            { id: 'credential', label: '자격증' }
         ];
 
         // 실제 섹션 컴포넌트 매핑
@@ -66,7 +68,8 @@ export default defineComponent({
             { id: 'projects', component: ProjectsSection },
             // { id: 'resume', component: ResumeSection },
             { id: 'skills', component: SkillsSection },
-            // { id: 'contact', component: ContactSection }
+            // { id: 'contact', component: ContactSection },
+            { id: 'credential', component: CredentialSection }
         ];
 
         // 스크롤 이벤트 핸들러
