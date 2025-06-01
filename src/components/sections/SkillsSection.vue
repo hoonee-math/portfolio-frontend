@@ -25,7 +25,7 @@ export default {
 
 .section {
     @include utils.section-style;
-    min-height: 500px;
+    //min-height: 500px;
     position: relative;
     justify-content: center;
 

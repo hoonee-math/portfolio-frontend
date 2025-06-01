@@ -153,7 +153,8 @@ export default defineComponent({
                 fullDescription: '개인 서버를 구축하여 포트폴리오 웹사이트를 운영하고 있습니다. 다양한 프로젝트와 기술 스택을 소개하며, 지속적으로 업데이트하고 있습니다.',
                 image: '/image/architecture/Architecture_MyServer.png',
                 images: [
-                    { src: '/image/architecture/Architecture_MyServer.png', alt: '메인 화면', caption: '메인 화면 - 문제은행 검색 및 카테고리' }
+                    { src: '/image/architecture/Architecture_MyServer.png', alt: '서버 아키텍처', caption: '서버 아키텍처' },
+                    { src: '/image/project/security_headers_A.png', alt: 'security_headers_A', caption: '서버 보안 설정' }
                 ],
                 tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'MySql', 'Docker-compose', 'Nginx', 'Linux-ubuntu',],
                 src: 'https://hoonee-math.info',
@@ -273,6 +274,37 @@ export default defineComponent({
                     '실시간 인구 밀집 지역 모니터링',
                     '객체 종류, 객체 수에 따른 임계값 설정',
                     'python yolo 모델을 활용한 객체 인식'
+                ]
+            },
+            {
+                title: '야간 자율학습 좌석 발급 시스템',
+                description: '교사의 업무 부담을 줄이고, 학생들도 편하게 야간 자율학습을 신청할 수 있는 좌석 발급 시스템',
+                fullDescription: '야간 자율학습을 효율적으로 관리하기 위한 좌석 발급 시스템입니다. 교사의 업무 부담을 줄이고, 학생들이 자율학습 시간을 효과적으로 활용할 수 있도록 돕습니다.',
+                image: '/image/project/seatApplication.png',
+                images: [
+                    { src: '/image/project/seatApplication.png', alt: 'seatApplication', caption: 'seatApplication' }
+                ],
+                tags: ['google', 'App Script', 'Spread Sheets', 'forms'],
+                features: [
+                    '구글 스프레드시트와 폼을 활용한 좌석 신청 시스템',
+                    '매일 교사들이 관리하던 좌석 신청을 자동화',
+                    '학생들이 편리하게 좌석 신청 및 현황 확인 가능',
+                    '실시간 좌석 현황 확인 기능'
+                ]
+            },
+            {
+                title: '교과융합캠프 신청 프로그램',
+                description: '1,2학년 학생들의 교과융합캠프 신청을 선착순으로 관리하는 프로그램',
+                fullDescription: '1,2학년 학생들이 참여할 수 있는 교과융합캠프 신청을 선착순으로 관리하는 프로그램입니다. 학생들이 쉽게 신청하고, 교사가 신청 현황을 효율적으로 관리할 수 있도록 돕습니다.',
+                image: '/image/project/campApplication.png',
+                images: [
+                    { src: '/image/project/campApplication.png', alt: 'campApplication', caption: 'campApplication' }
+                ],
+                tags: ['google', 'App Script', 'Spread Sheets', 'forms'],
+                features: [
+                    '구글 스프레드시트와 폼을 활용한 캠프 신청 시스템',
+                    '선착순 신청 관리 및 현황 확인 기능',
+                    '학생들이 쉽게 신청하고, 교사가 신청 현황을 효율적으로 관리할 수 있도록 지원'
                 ]
             }
         ] as Project[]);
@@ -410,7 +442,7 @@ export default defineComponent({
     overflow: hidden;
 
     img {
-        width: 100%;
+        // width: 100%;
         height: 100%;
         object-fit: cover;
     }
@@ -533,10 +565,13 @@ export default defineComponent({
 }
 
 .slide-image {
-    width: 100%;
+    //width: 100%;
     height: 300px;
     object-fit: cover;
     cursor: pointer;
+}
+.slide-image:hover {
+    opacity: 0.9;
 }
 
 .slide-caption {

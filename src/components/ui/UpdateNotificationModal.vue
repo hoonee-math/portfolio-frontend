@@ -71,7 +71,8 @@ export default defineComponent({
             {
                 date: '2025.06.01',
                 items: [
-                    { type: 'improvement', text: 'Nginx 보안 업데이트 완료\nSecurityHeaders.com A등급 달성' }
+                    { type: 'improvement', text: 'Nginx 보안 업데이트 완료\nSecurityHeaders.com A등급 달성' },
+                    { type: 'new', text: 'Python, App script 프로젝트 추가' }
                 ]
             },
             {
