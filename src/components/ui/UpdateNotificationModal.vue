@@ -444,7 +444,7 @@ export default defineComponent({
     }
 
     .modal-body {
-        padding: 0 20px 16px;
+        padding: 20px 16px;
     }
 
     .modal-footer {
@@ -464,8 +464,8 @@ export default defineComponent({
     }
 
     .update-item {
-        flex-direction: column;
-        align-items: flex-start;
+        //flex-direction: column;
+        //align-items: flex-start;
         gap: 8px;
 
         .update-badge {
