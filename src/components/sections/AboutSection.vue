@@ -2,7 +2,6 @@
     <section class="section" id="home">
         <div class="section-header">
             <h2 class="section-title">About Me</h2>
-            <p class="section-subtitle">현재 작업 중입니다.</p>
         </div>
 
         <!-- 이미지 슬라이더 -->
@@ -236,6 +235,7 @@ export default defineComponent({
             .slider-btn {
                 background-color: rgba(255, 255, 255, 0.95);
                 transform: scale(1.1);
+                
             }
         }
 
@@ -267,6 +267,18 @@ export default defineComponent({
             background-color: rgba(255, 255, 255, 0.95);
             transform: scale(1.1);
         }
+    }
+
+    @media (max-width: 768px) {
+        .slider-btn-area {
+            width: 40px; /* 모바일에서 클릭 가능한 영역을 좁게 */
+        }
+        .slider-btn {
+            width: 12px;
+            height: 12px;
+            font-size: 8px;
+        }
+
     }
 
     .slider-indicators {

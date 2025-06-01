@@ -71,7 +71,7 @@ export default defineComponent({
 .zoom-image {
     border-radius: 10px;
     box-shadow: vars.$shadow;
-    margin-bottom: 2rem;
+    //margin-bottom: 2rem;
     max-width: 100%;
     height: auto;
     cursor: zoom-in;
