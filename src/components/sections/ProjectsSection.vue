@@ -144,6 +144,11 @@ export default defineComponent({
         
         // 슬라이더 관련 상태
         const currentSlide = ref(0);
+        
+        // 자동 슬라이드 관련 변수
+        let autoSlideInterval: NodeJS.Timeout | null = null;
+        const autoSlideDelay = 3000; // 3초마다 자동 전환
+        const isHovered = ref(false);
 
         // 프로젝트 데이터 (이미지와 상세 정보 추가)
         const projects = ref([
@@ -154,7 +159,7 @@ export default defineComponent({
                 image: '/image/architecture/Architecture_MyServer.png',
                 images: [
                     { src: '/image/architecture/Architecture_MyServer.png', alt: '서버 아키텍처', caption: '서버 아키텍처' },
-                    { src: '/image/project/security_headers_A.png', alt: 'security_headers_A', caption: '서버 보안 설정' }
+                    { src: '/image/project/security_headers_A.png', alt: 'security_headers_A', caption: 'securityheaders.com A등급' }
                 ],
                 tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'MySql', 'Docker-compose', 'Nginx', 'Linux-ubuntu',],
                 src: 'https://hoonee-math.info',
@@ -170,7 +175,7 @@ export default defineComponent({
                 fullDescription: '천재교육에서 제공하는 문제은행 API를 활용하여 학생들이 다양한 문제를 풀어볼 수 있는 웹사이트를 개발했습니다. 사용자 친화적인 UI와 효율적인 문제 검색 기능을 제공합니다.',
                 image: '/image/project/천재의서재.png',
                 images: [
-                    { src: '/천재의서재.png', alt: '메인 화면', caption: '메인 화면 - 문제은행 검색 및 카테고리' },
+                    { src: '/image/project/천재의서재.png', alt: '메인 화면', caption: '메인 화면 - 문제은행 검색 및 카테고리' },
                     { src: '/image/architecture/Architecture_천재의서재.png', alt: '천재의 서재 아키텍처', caption: '천재의 서재 아키텍처' },
                 ],
                 tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
@@ -185,11 +190,11 @@ export default defineComponent({
                 title: 'GenieQ',
                 description: '비문학 지문 및 문항 AI 생성 서비스',
                 fullDescription: 'AI 기술을 활용하여 비문학 지문과 관련 문항을 자동으로 생성하는 서비스입니다. 교육자들이 보다 효율적으로 교육 자료를 제작할 수 있도록 돕습니다.',
-                image: '/image/project/genieq.png',
+                image: '/image/project/GenieQ_main.png',
                 images: [
-                    { src: '/image/project/genieq.png', alt: 'GenieQ 메인', caption: 'GenieQ 메인 화면' },
+                    { src: '/image/project/genieq.png', alt: 'GenieQ', caption: 'GenieQ 지문 생성화면' },
                     { src: '/image/architecture/Architecture_GenieQ.png', alt: 'GeineQ 아키텍처', caption: 'GeineQ 아키텍처' },
-                    { src: '/image/project/genieq-결과.png', alt: '생성 결과', caption: '생성된 문제 결과 화면' }
+                    { src: '/image/project/GenieQ_main.png', alt: '생성 결과', caption: 'GenieQ 메인 화면' }
                 ],
                 tags: ['Vue.js', 'java', 'Spring-boot', 'JPA', 'OracleDB', 'AWS', 'Docker'],
                 src: 'http://43.202.6.90/team/genius/kwanghoon',
@@ -314,12 +319,14 @@ export default defineComponent({
             selectedProject.value = project;
             currentSlide.value = 0;
             showModal.value = true;
+            startAutoSlide();
         };
 
         // 모달 닫기
         const closeModal = () => {
             showModal.value = false;
             currentSlide.value = 0;
+            stopAutoSlide();
         };
 
         // 링크로 이동
@@ -328,6 +335,24 @@ export default defineComponent({
                 window.open(selectedProject.value.src, '_blank');
             }
             closeModal();
+        };
+
+        // 자동 슬라이드 시작
+        const startAutoSlide = () => {
+            if (autoSlideInterval) return;
+            autoSlideInterval = setInterval(() => {
+                if (!isHovered.value) {
+                    nextSlide();
+                }
+            }, autoSlideDelay);
+        };
+
+        // 자동 슬라이드 정지
+        const stopAutoSlide = () => {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
         };
 
         // 슬라이더 함수들
