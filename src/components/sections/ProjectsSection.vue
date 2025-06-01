@@ -146,7 +146,7 @@ export default defineComponent({
         const currentSlide = ref(0);
         
         // 자동 슬라이드 관련 변수
-        let autoSlideInterval: NodeJS.Timeout | null = null;
+        let autoSlideInterval: ReturnType<typeof setInterval> | null = null;
         const autoSlideDelay = 3000; // 3초마다 자동 전환
         const isHovered = ref(false);
 
