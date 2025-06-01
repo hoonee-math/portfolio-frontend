@@ -5,8 +5,9 @@
                 <ZoomImage src="/image/portfolio/슬라이드1.PNG" alt="포트폴리오 이미지" additional-class="slide-image"/>
                 <h2 class="title">안녕하십니까!</h2>
                 <p class="subtitle">
-                    창의적이고 혁신적인 웹 개발자 최광훈입니다.<br> 다양한 기술 스택을 활용하여 사용자 경험을 극대화하는 웹 애플리케이션을 개발합니다.
-                    <br>
+                    창의적이고 혁신적인 웹 개발자 최광훈입니다.<br> 
+                    <strong style="color: green;">Vue.js</strong>, <strong style="color: blue;">TypeScript</strong>, <strong style="color: darkorange;">JavaScript</strong> 등 다양한 기술을 활용하여<br>
+                    사용자 경험을 극대화하는 웹 애플리케이션을 개발합니다.<br><br>
                     스크롤을 내리거나 메뉴를 통해 제 포트폴리오를 확인해보세요.
                     <br>
                 </p>
@@ -67,7 +68,7 @@ strong {
 
 .title {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin: 2rem 0 1rem 0;
   color: vars.$text-color;
   
   @media (max-width: 768px) {

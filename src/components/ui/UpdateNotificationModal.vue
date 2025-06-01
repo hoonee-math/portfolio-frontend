@@ -72,6 +72,7 @@ export default defineComponent({
                 date: '2025.06.01',
                 items: [
                     { type: 'improvement', text: 'Nginx 보안 업데이트 완료\nSecurityHeaders.com A등급 달성' },
+                    { type: 'improvement', text: '소개 섹션 슬라이더로 수정\n 프로젝트 이미지 자동 넘기기, 높이조정' },
                     { type: 'new', text: 'Python, App script 프로젝트 추가' }
                 ]
             },
