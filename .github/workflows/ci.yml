@@ -1,0 +1,118 @@
+# Vue.js 프론트엔드 CI/CD 파이프라인
+name: Frontend CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # 2. Node.js 22 환경 설정
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          
+      # 3. 의존성 설치
+      - name: Install dependencies
+        run: npm ci
+        
+      # 4. TypeScript 타입 체크 및 빌드
+      - name: Type check and build
+        run: npm run build
+        
+      # 5. 빌드 결과물 확인
+      - name: Verify build output
+        run: |
+          echo "=== Build Output Check ==="
+          ls -la dist/
+          echo "=== dist/index.html Content ==="
+          head -20 dist/index.html
+          echo "=== Build Size Information ==="
+          du -sh dist/
+          
+      # 6. 빌드 아티팩트 업로드 (디버깅용)
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: dist/
+          retention-days: 1
+          
+      # 7. SSH를 통한 서버 배포 (main 브랜치만)
+      - name: Deploy to server
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # SSH 키 설정
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # known_hosts 추가 (보안 강화)
+          ssh-keyscan -H -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          
+          echo "=== 기존 파일 백업 ==="
+          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+            cd /home/hooneeubuntu/services/frontend/portfolio/
+            if [ -f index.html ]; then
+              echo 'Creating backup...'
+              cp -r . ../portfolio_backup_$(date +%Y%m%d_%H%M%S)/
+              echo 'Backup created successfully'
+            fi
+          "
+          
+          echo "=== 새 파일 업로드 ==="
+          scp -i ~/.ssh/id_rsa -P ${{ secrets.SERVER_PORT }} -r dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/hooneeubuntu/services/frontend/portfolio/
+          
+          echo "=== 배포 완료 확인 ==="
+          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+            cd /home/hooneeubuntu/services/frontend/portfolio/
+            echo '=== Deployed Files ==='
+            ls -la
+            echo '=== index.html Check ==='
+            if [ -f index.html ]; then
+              echo 'index.html exists - Deployment SUCCESS!'
+              head -5 index.html
+            else
+              echo 'index.html not found - Deployment FAILED!'
+              exit 1
+            fi
+          "
+          
+      # 8. 배포 성공 알림
+      - name: Deployment success notification
+        if: success() && github.ref == 'refs/heads/main'
+        run: |
+          echo "🚀 Frontend deployment completed successfully!"
+          echo "Website: https://hoonee-math.info/"
+          echo "Build size: $(du -sh dist/ | cut -f1)"
+          echo "Commit: ${{ github.sha }}"
+          
+      # 9. 배포 실패 시 롤백
+      - name: Rollback on failure
+        if: failure() && github.ref == 'refs/heads/main'
+        run: |
+          echo "❌ Deployment failed. Starting rollback..."
+          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+            cd /home/hooneeubuntu/services/frontend/
+            LATEST_BACKUP=\$(ls -t portfolio_backup_* 2>/dev/null | head -1)
+            if [ -n \"\$LATEST_BACKUP\" ]; then
+              echo 'Restoring from backup: '\$LATEST_BACKUP
+              rm -rf portfolio/*
+              cp -r \$LATEST_BACKUP/* portfolio/
+              echo 'Rollback completed successfully'
+            else
+              echo 'No backup found for rollback'
+            fi
+          "
+          exit 1
