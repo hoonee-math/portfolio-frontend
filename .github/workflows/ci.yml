@@ -52,31 +52,42 @@ jobs:
       # 7. SSH를 통한 서버 배포 (main 브랜치만)
       - name: Deploy to server
         if: github.ref == 'refs/heads/main'
+        env:
+          SSH_HOST: ${{ secrets.SERVER_HOST }}
+          SSH_USER: ${{ secrets.SERVER_USER }}
+          SSH_PORT: ${{ secrets.SERVER_PORT }}
         run: |
           # SSH 키 설정
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          # known_hosts 추가 (보안 강화)
-          ssh-keyscan -H -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          # 환경 변수 확인 (보안: 포트 번호 숨김)
+          echo "=== Connection Info ==="
+          echo "Host: ${SSH_HOST}"
+          echo "User: ${SSH_USER}"
+          echo "Port: [HIDDEN]"
+          
+          # known_hosts 추가 (안전한 방식)
+          ssh-keyscan -p ${SSH_PORT} ${SSH_HOST} >> ~/.ssh/known_hosts 2>/dev/null || true
           
           echo "=== 기존 파일 백업 ==="
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-            cd /home/hooneeubuntu/services/frontend/portfolio/
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT} ${SSH_USER}@${SSH_HOST} "
+            cd ${{ secrets.FRONTEND_PATH }}
             if [ -f index.html ]; then
               echo 'Creating backup...'
-              cp -r . ../portfolio_backup_$(date +%Y%m%d_%H%M%S)/
+              mkdir -p ../portfolio_backup_\$(date +%Y%m%d_%H%M%S)
+              cp -r . ../portfolio_backup_\$(date +%Y%m%d_%H%M%S)/
               echo 'Backup created successfully'
             fi
-          "
+          " 2>/dev/null || echo "Backup step failed, continuing..."
           
           echo "=== 새 파일 업로드 ==="
-          scp -i ~/.ssh/id_rsa -P ${{ secrets.SERVER_PORT }} -r dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/hooneeubuntu/services/frontend/portfolio/
+          scp -i ~/.ssh/id_rsa -P ${SSH_PORT} -r dist/* ${SSH_USER}@${SSH_HOST}:${{ secrets.FRONTEND_PATH }}
           
           echo "=== 배포 완료 확인 ==="
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-            cd /home/hooneeubuntu/services/frontend/portfolio/
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT} ${SSH_USER}@${SSH_HOST} "
+            cd ${{ secrets.FRONTEND_PATH }}
             echo '=== Deployed Files ==='
             ls -la
             echo '=== index.html Check ==='
@@ -101,6 +112,10 @@ jobs:
       # 9. 배포 실패 시 롤백
       - name: Rollback on failure
         if: failure() && github.ref == 'refs/heads/main'
+        env:
+          SSH_HOST: ${{ secrets.SERVER_HOST }}
+          SSH_USER: ${{ secrets.SERVER_USER }}
+          SSH_PORT: ${{ secrets.SERVER_PORT }}
         run: |
           echo "❌ Deployment failed. Starting rollback..."
           
@@ -109,11 +124,11 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          # known_hosts 추가
-          ssh-keyscan -H -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          # known_hosts 추가 (에러 무시)
+          ssh-keyscan -p ${SSH_PORT} ${SSH_HOST} >> ~/.ssh/known_hosts 2>/dev/null || true
           
           # 롤백 실행
-          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT} ${SSH_USER}@${SSH_HOST} "
             cd /home/hooneeubuntu/services/frontend/
             LATEST_BACKUP=\$(ls -t portfolio_backup_* 2>/dev/null | head -1)
             if [ -n \"\$LATEST_BACKUP\" ]; then
@@ -124,5 +139,5 @@ jobs:
             else
               echo 'No backup found for rollback'
             fi
-          "
+          " 2>/dev/null || echo "Rollback failed"
           exit 1
