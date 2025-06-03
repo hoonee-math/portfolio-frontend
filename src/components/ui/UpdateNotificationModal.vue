@@ -69,6 +69,12 @@ export default defineComponent({
         // 기존 단일 업데이트에서 배열로 변경
         const updateGroups = ref<UpdateGroup[]>([
             {
+                date: '2025.06.03',
+                items: [
+                    { type: 'improvement', text: 'CI/CD 파이프라인 구축 중' }
+                ]
+            },
+            {
                 date: '2025.06.01',
                 items: [
                     { type: 'improvement', text: 'Nginx 보안 업데이트 완료\nSecurityHeaders.com A등급 달성' },
