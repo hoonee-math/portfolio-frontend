@@ -103,6 +103,16 @@ jobs:
         if: failure() && github.ref == 'refs/heads/main'
         run: |
           echo "❌ Deployment failed. Starting rollback..."
+          
+          # SSH 키 다시 설정 (실패 상황에서는 키가 없을 수 있음)
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # known_hosts 추가
+          ssh-keyscan -H -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          
+          # 롤백 실행
           ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
             cd /home/hooneeubuntu/services/frontend/
             LATEST_BACKUP=\$(ls -t portfolio_backup_* 2>/dev/null | head -1)
