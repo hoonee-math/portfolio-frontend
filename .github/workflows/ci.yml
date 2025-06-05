@@ -58,25 +58,33 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
-          # known_hosts 추가 (보안 강화)
-          ssh-keyscan -H -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+          # 환경 변수 확인 (디버깅)
+          echo "=== Connection Info ==="
+          echo "Host: ${{ secrets.SERVER_HOST }}"
+          echo "User: ${{ secrets.SERVER_USER }}"
+          echo "Port: [HIDDEN]"
+          echo "Path: ${{ secrets.FRONTEND_PATH }}"
+          
+          # known_hosts 추가 (안전한 방식)
+          ssh-keyscan -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
           
           echo "=== 기존 파일 백업 ==="
           ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-            cd /home/hooneeubuntu/services/frontend/portfolio/
+            cd ${{ secrets.FRONTEND_PATH }}
             if [ -f index.html ]; then
               echo 'Creating backup...'
-              cp -r . ../portfolio_backup_$(date +%Y%m%d_%H%M%S)/
+              mkdir -p ../portfolio_backup_\$(date +%Y%m%d_%H%M%S)
+              cp -r . ../portfolio_backup_\$(date +%Y%m%d_%H%M%S)/
               echo 'Backup created successfully'
             fi
-          "
+          " 2>/dev/null || echo "Backup step failed, continuing..."
           
           echo "=== 새 파일 업로드 ==="
-          scp -i ~/.ssh/id_rsa -P ${{ secrets.SERVER_PORT }} -r dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/hooneeubuntu/services/frontend/portfolio/
+          scp -i ~/.ssh/id_rsa -P ${{ secrets.SERVER_PORT }} -r dist/* ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.FRONTEND_PATH }}
           
           echo "=== 배포 완료 확인 ==="
           ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
-            cd /home/hooneeubuntu/services/frontend/portfolio/
+            cd ${{ secrets.FRONTEND_PATH }}
             echo '=== Deployed Files ==='
             ls -la
             echo '=== index.html Check ==='
@@ -103,6 +111,16 @@ jobs:
         if: failure() && github.ref == 'refs/heads/main'
         run: |
           echo "❌ Deployment failed. Starting rollback..."
+          
+          # SSH 키 다시 설정 (실패 상황에서는 키가 없을 수 있음)
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # known_hosts 추가 (에러 무시)
+          ssh-keyscan -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+          
+          # 롤백 실행
           ssh -i ~/.ssh/id_rsa -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
             cd /home/hooneeubuntu/services/frontend/
             LATEST_BACKUP=\$(ls -t portfolio_backup_* 2>/dev/null | head -1)
@@ -114,5 +132,5 @@ jobs:
             else
               echo 'No backup found for rollback'
             fi
-          "
+          " 2>/dev/null || echo "Rollback failed"
           exit 1
