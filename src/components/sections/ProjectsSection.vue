@@ -3,11 +3,19 @@
         <div class="section-header">
             <h2 class="section-title">프로젝트</h2>
             <p class="section-subtitle">프로젝트를 선택하여 자세한 내용을 확인해볼 수 있습니다.</p>
+
+            <!-- 필터 버튼들 추가 -->
+            <div class="filter-buttons">
+            <button @click="setFilter('전체')" :class="{ active: selectedFilter === '전체' }" class="filter-btn">전체 ({{ projects.length }})</button>
+            <button  v-for="tag in allTags" :key="tag" @click="setFilter(tag)" :class="{ active: selectedFilter === tag }" class="filter-btn">
+                {{ tag }} ({{ projects.filter((p: Project) => p.tags.includes(tag)).length }})
+            </button>
+            </div>
         </div>
 
         <div class="section-body">
             <div class="projects-grid">
-                <div v-for="(project, index) in projects" :key="index" class="project-card" @click="openModal(project)">
+                <div v-for="(project, index) in filteredProjects" :key="index" class="project-card" @click="openModal(project)">
                     <div class="project-image">
                         <img :src="project.image" :alt="project.title">
                     </div>
@@ -133,36 +141,30 @@ export default defineComponent({
         PageNumber
     },
     setup() {
-        // 기술 스택 필터링 관련 상태 추가
-        const selectedTags = ref<string[]>(["전체"]);
-        const allTags = computed(() => {
-            const tagsSet = new Set<string>();
+        // 필터링 관련 상태 추가
+        const selectedFilter = ref<string>('전체'); // 현재 선택된 필터
+        // allTags computed 타입 명시
+        const allTags = computed<string[]>(() => {
+            const tagSet = new Set<string>();
             projects.value.forEach(project => {
-                project.tags.forEach(tag => tagsSet.add(tag));
+                project.tags.forEach(tag => tagSet.add(tag));
             });
-            return Array.from(tagsSet).sort();
+            return Array.from(tagSet).sort();
         });
 
-        const filteredProjects = computed(() => {
-            if (selectedTags.value.includes("전체")) {
+        // filteredProjects computed 타입 명시
+        const filteredProjects = computed<Project[]>(() => {
+            if (selectedFilter.value === '전체') {
                 return projects.value;
             }
-            return projects.value.filter(project =>
-                project.tags.some(tag => selectedTags.value.includes(tag))
+            return projects.value.filter(project => 
+                project.tags.includes(selectedFilter.value)
             );
         });
 
-        // 필터링 함수
-        const setFilter = (tag: string) => {
-            if (tag === "전체") {
-                selectedTags.value = ["전체"];
-            } else {
-                if (selectedTags.value.includes(tag)) {
-                    selectedTags.value = selectedTags.value.filter(t => t !== tag);
-                } else {
-                    selectedTags.value.push(tag);
-                }
-            }
+        // 필터 변경 함수
+        const setFilter = (tag: string): void => {
+            selectedFilter.value = tag;
         };
 
 
@@ -412,7 +414,10 @@ export default defineComponent({
         };
         
         return {
-            selectedTags, allTags, filteredProjects, setFilter,
+            selectedFilter,
+            allTags,
+            filteredProjects,
+            setFilter,
             projects,
             showModal,
             selectedProject,
@@ -459,6 +464,34 @@ export default defineComponent({
 
 .section-body {
     flex: 1;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  background-color: vars.$gray-200;
+  color: vars.$gray-700;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: vars.$gray-300;
+  }
+  
+  &.active {
+    background: vars.$gradient-primary;
+    color: white;
+  }
 }
 
 .projects-grid {
