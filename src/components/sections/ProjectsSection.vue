@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import PageNumber from '@/components/ui/PageNumber.vue';
 
 interface ProjectImage {
@@ -133,6 +133,39 @@ export default defineComponent({
         PageNumber
     },
     setup() {
+        // 기술 스택 필터링 관련 상태 추가
+        const selectedTags = ref<string[]>(["전체"]);
+        const allTags = computed(() => {
+            const tagsSet = new Set<string>();
+            projects.value.forEach(project => {
+                project.tags.forEach(tag => tagsSet.add(tag));
+            });
+            return Array.from(tagsSet).sort();
+        });
+
+        const filteredProjects = computed(() => {
+            if (selectedTags.value.includes("전체")) {
+                return projects.value;
+            }
+            return projects.value.filter(project =>
+                project.tags.some(tag => selectedTags.value.includes(tag))
+            );
+        });
+
+        // 필터링 함수
+        const setFilter = (tag: string) => {
+            if (tag === "전체") {
+                selectedTags.value = ["전체"];
+            } else {
+                if (selectedTags.value.includes(tag)) {
+                    selectedTags.value = selectedTags.value.filter(t => t !== tag);
+                } else {
+                    selectedTags.value.push(tag);
+                }
+            }
+        };
+
+
         // 모달 관련 상태
         const showModal = ref(false);
         const selectedProject = ref<Project>({
@@ -379,6 +412,7 @@ export default defineComponent({
         };
         
         return {
+            selectedTags, allTags, filteredProjects, setFilter,
             projects,
             showModal,
             selectedProject,
