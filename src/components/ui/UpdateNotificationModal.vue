@@ -69,6 +69,12 @@ export default defineComponent({
         // 기존 단일 업데이트에서 배열로 변경
         const updateGroups = ref<UpdateGroup[]>([
             {
+                date: '2025.06.05',
+                items: [
+                    { type: 'new', text: '기술 스택별 프로젝트 필터링 기능' }
+                ]
+            },
+            {
                 date: '2025.06.03',
                 items: [
                     { type: 'improvement', text: 'CI/CD 파이프라인 구축 중' }
