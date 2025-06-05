@@ -10,7 +10,7 @@
                 <li class="skill-item">TypeScript</li>
                 <li class="skill-item">Vue.js</li>
             </ul> -->
-            <img src="/image/portfolio/슬라이드15.PNG" alt="포트폴리오 이미지" class="slide-image">
+            <img src="/image/portfolio/skills.png" alt="포트폴리오 이미지" class="slide-image">
         </div>
     </section>
 </template>

@@ -459,6 +459,14 @@ export default defineComponent({
     .section-subtitle {
         color: vars.$gray-600;
         font-weight: vars.$font-weight-medium;
+        
+        @media (max-width: 768px) {
+            font-size: 0.9rem;
+        }
+
+        @media (min-width: 992px) {
+            font-size: 1.2rem;
+        }
     }
 }
 
@@ -526,6 +534,14 @@ export default defineComponent({
     color: vars.$gray-600;
     margin-bottom: 1rem;
     line-height: 1.5;
+    
+    @media (max-width: 768px) {
+        font-size: 0.9rem;
+    }
+
+    @media (min-width: 992px) {
+        font-size: 1.2rem;
+    }
 }
 
 .project-tags {
