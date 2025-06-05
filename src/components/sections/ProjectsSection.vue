@@ -309,7 +309,7 @@ export default defineComponent({
                 images: [
                     { src: '/image/project/emergency.png', alt: 'ai emergency 메인', caption: 'ai emergency main' }
                 ],
-                tags: ['python', 'yolo', 'pip', '화소처리기법'],
+                tags: ['python', 'yolo', '화소처리기법'],
                 features: [
                     '실시간 인구 밀집 지역 모니터링',
                     '객체 종류, 객체 수에 따른 임계값 설정',
@@ -324,7 +324,7 @@ export default defineComponent({
                 images: [
                     { src: '/image/project/seatApplication.png', alt: 'seatApplication', caption: 'seatApplication' }
                 ],
-                tags: ['google', 'App Script', 'Spread Sheets', 'forms'],
+                tags: ['App Script', 'Spread Sheets', 'forms'],
                 features: [
                     '구글 스프레드시트와 폼을 활용한 좌석 신청 시스템',
                     '매일 교사들이 관리하던 좌석 신청을 자동화',
@@ -340,7 +340,7 @@ export default defineComponent({
                 images: [
                     { src: '/image/project/campApplication.png', alt: 'campApplication', caption: 'campApplication' }
                 ],
-                tags: ['google', 'App Script', 'Spread Sheets', 'forms'],
+                tags: ['App Script', 'Spread Sheets', 'forms'],
                 features: [
                     '구글 스프레드시트와 폼을 활용한 캠프 신청 시스템',
                     '선착순 신청 관리 및 현황 확인 기능',
@@ -466,34 +466,6 @@ export default defineComponent({
     flex: 1;
 }
 
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.filter-btn {
-  background-color: vars.$gray-200;
-  color: vars.$gray-700;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background-color: vars.$gray-300;
-  }
-  
-  &.active {
-    background: vars.$gradient-primary;
-    color: white;
-  }
-}
-
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -568,6 +540,34 @@ export default defineComponent({
     font-size: 0.8rem;
     padding: 0.3rem 0.6rem;
     border-radius: 50px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  background-color: vars.$gray-200;
+  color: vars.$gray-700;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: vars.$gray-300;
+  }
+  
+  &.active {
+    background: vars.$gradient-primary;
+    color: white;
+  }
 }
 
 /* 개선된 모달 스타일 */
