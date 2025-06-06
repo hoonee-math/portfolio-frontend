@@ -77,7 +77,7 @@ export default defineComponent({
             {
                 date: '2025.06.03',
                 items: [
-                    { type: 'improvement', text: 'CI/CD 파이프라인 구축 중' }
+                    { type: 'improvement', text: 'CI/CD 자동화 구축 완료' }
                 ]
             },
             {
