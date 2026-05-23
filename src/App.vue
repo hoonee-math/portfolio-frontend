@@ -9,12 +9,13 @@
                     <div class="terminal-title">hoonee@ujuro: ~</div>
                 </div>
                 <div class="terminal-body">
-                    <div class="ascii">██╗   ██╗     ██╗██╗   ██╗██████╗  ██████╗
-██║   ██║     ██║██║   ██║██╔══██╗██╔═══██╗
-██║   ██║     ██║██║   ██║██████╔╝██║   ██║
-██║   ██║██   ██║██║   ██║██╔══██╗██║   ██║
-╚██████╔╝╚█████╔╝╚██████╔╝██║  ██║╚██████╔╝
- ╚═════╝  ╚════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ </div>
+                    <pre class="ascii">       _
+ _   _(_)_   _ _ __ ___
+| | | | | | | | '__/ _ \
+| |_| | | |_| | | | (_) |
+ \__,_| |\__,_|_|  \___/
+     _/ |
+    |__/                  </pre>
                     <span class="line"><span class="prompt">$</span> <span class="typewriter">git status</span></span>
                     <span class="line"><span class="comment"># On branch </span><span class="keyword">launch/ujuro</span></span>
                     <span class="line"><span class="comment"># Status: </span><span class="var">preparing for launch...</span></span>
@@ -57,7 +58,7 @@ html, body, #app {
     height: 100%;
 }
 body {
-    font-family: 'D2Coding', 'Cascadia Code', 'Consolas', 'Menlo', monospace;
+    font-family: 'Cascadia Code', 'Consolas', 'Menlo', 'D2Coding', monospace;
     background: #0d1117;
     color: #c9d1d9;
 }
@@ -139,11 +140,11 @@ body {
 
 .ascii {
     color: #ff7b72;
-    font-size: 10px;
+    font-family: inherit;
+    font-size: 13px;
     line-height: 1.2;
-    margin-bottom: 16px;
+    margin: 0 0 20px;
     white-space: pre;
-    overflow-x: auto;
 }
 
 .links {
